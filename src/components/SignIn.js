@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { BrowserRouter as Route, Switch } from "react-router-dom";
-import SignUp from "../components/SignUp";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
@@ -87,14 +84,11 @@ export const SignIn = () => {
             <div>
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link component={RouterLink} to="/SignUp.js" variant="body2">
-                    Already have an account? Sign in
+                  <Link href="/" variant="body2">
+                    Don't have an account? Sign up
                   </Link>
                 </Grid>
               </Grid>
-              <Switch>
-                <Route path="/components/SignUp.js" component={SignUp} />
-              </Switch>
             </div>
           </Box>
         </Box>
