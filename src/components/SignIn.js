@@ -10,14 +10,13 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 const defaultTheme = createTheme();
 
 export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const history = useHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -32,9 +31,9 @@ export const SignIn = () => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        if (data.status === "success") {
-          history.push("/main");
+      .then((response) => {
+        if (response.ok) {
+          return Redirect("/main");
         } else {
           alert("Email or password is incorrect. Please try again.");
         }
