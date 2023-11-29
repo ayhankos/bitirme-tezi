@@ -10,26 +10,40 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
-
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 const defaultTheme = createTheme();
 
 export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    //const data = new FormData(event.currentTarget);
 
     fetch("https://dummyjson.com/users?limit=5&skip=10&select=email,password")
-      .then((res) => res.json())
       .then((res) => {
-        if (res.ok) {
-          return Redirect("/main");
+        if (!res.ok) {
+          throw new Error(`Network response was not ok. Status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        // Veriyi kontrol et ve girişi yönlendir
+        const user = data.users.find(
+          (user) => user.email === email && user.password === password
+        );
+
+        if (user) {
+          // Girişi yönlendir
+          history.push("/main");
         } else {
           alert("Email or password is incorrect. Please try again.");
         }
+      })
+      .catch((error) => {
+        console.error("There was a problem with the fetch operation:", error);
       });
   };
 
@@ -89,7 +103,7 @@ export const SignIn = () => {
             <div>
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link href="/" variant="body2">
+                  <Link href="/main" variant="body2">
                     Don't have an account? Sign up
                   </Link>
                 </Grid>
