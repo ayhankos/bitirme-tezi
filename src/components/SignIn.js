@@ -22,17 +22,10 @@ export const SignIn = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    fetch("https://dummyjson.com/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: data.get("email"),
-        password: data.get("password"),
-      }),
-    })
+    fetch("https://dummyjson.com/users?limit=5&skip=10&select=email,password")
       .then((res) => res.json())
-      .then((response) => {
-        if (response.ok) {
+      .then((res) => {
+        if (res.ok) {
           return Redirect("/main");
         } else {
           alert("Email or password is incorrect. Please try again.");
