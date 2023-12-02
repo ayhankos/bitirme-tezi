@@ -23,6 +23,7 @@ export const SignIn = () => {
     //const data = new FormData(event.currentTarget);
 
     fetch("https://dummyjson.com/users?limit=5&skip=10&select=email,password")
+      // acharlota@liveinternet.ru   M9lbMdydMN
       .then((res) => {
         if (!res.ok) {
           throw new Error(`Network response was not ok. Status: ${res.status}`);
