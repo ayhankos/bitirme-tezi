@@ -140,7 +140,7 @@ function ResponsiveAppBar() {
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
                       alt="Remy Sharp"
-                      src="/static/images/avatar/2.jpg"
+                      src="https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png"
                     />
                   </IconButton>
                 </Tooltip>
@@ -172,7 +172,7 @@ function ResponsiveAppBar() {
         </AppBar>
       </>
       <>
-        <Container maxWidth="xl"></Container>
+        <Container maxWidth="xl">Ayhan</Container>
       </>
     </>
   );
