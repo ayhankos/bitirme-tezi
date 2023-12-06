@@ -64,7 +64,7 @@ export const SignIn = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Giriş Yap
           </Typography>
           <Box
             component="form"
@@ -99,13 +99,13 @@ export const SignIn = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Giriş Yap
             </Button>
             <div>
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link href="/main" variant="body2">
-                    Don't have an account? Sign up
+                  <Link href="/" variant="body2">
+                    Hesabın yok mu? Kayıt ol!
                   </Link>
                 </Grid>
               </Grid>

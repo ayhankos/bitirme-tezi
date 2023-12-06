@@ -47,7 +47,7 @@ function Signup() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Kayıt Ol
           </Typography>
           <Box
             component="form"
@@ -111,7 +111,7 @@ function Signup() {
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="Güncellemeleri email ile almak istiyorum."
                 />
               </Grid>
             </Grid>
@@ -121,13 +121,13 @@ function Signup() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Kayıt Ol
             </Button>
             <div>
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Link href="/sign-in" variant="body2">
-                    Already have an account? Sign in
+                    Zaten bir hesabın var mı? Giriş yap!
                   </Link>
                 </Grid>
               </Grid>
