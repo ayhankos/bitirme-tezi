@@ -17,6 +17,7 @@ import ListItem from "@mui/joy/ListItem";
 import ListItemButton from "@mui/joy/ListItemButton";
 import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import MyNavbar from "./appbar";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -29,7 +30,7 @@ const Item = styled(Paper)(({ theme }) => ({
 function ResponsiveAppBar() {
   return (
     <Box sx={{}}>
-      <AppBar />
+      <MyNavbar />
       <>
         <Box
           component="div"

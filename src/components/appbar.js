@@ -13,18 +13,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import theme from "./colors";
-import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Divider from "@mui/joy/Divider";
-import List from "@mui/joy/List";
-import ListSubheader from "@mui/joy/ListSubheader";
-import ListItem from "@mui/joy/ListItem";
-import ListItemButton from "@mui/joy/ListItemButton";
-import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 
 const pages = ["Topluluklar", "Etkinlikler", "Hakkımızda"];
 const settings = ["Profilim", "Hesap", "Arayüz", "Çıkış Yap"];
