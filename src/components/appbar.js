@@ -18,8 +18,6 @@ import { useHistory } from "react-router-dom";
 const pages = ["Topluluklar", "Etkinlikler", "Hakkımızda"];
 const settings = ["Profilim", "Hesap", "Arayüz", "Çıkış Yap"];
 
-// ... (diğer importlar)
-
 function MyNavbar({ onClickLogo }) {
   const history = useHistory();
 
@@ -30,12 +28,17 @@ function MyNavbar({ onClickLogo }) {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const handleCloseAndNavigate = (page) => {
+    handleCloseNavMenu();
+    history.push(page.toLowerCase());
+  };
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseUserMenu = () => {
@@ -51,7 +54,6 @@ function MyNavbar({ onClickLogo }) {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-            {/* İlk LOGO */}
             <Typography
               variant="h6"
               noWrap
@@ -102,14 +104,14 @@ function MyNavbar({ onClickLogo }) {
                 {pages.map((page) => (
                   <MenuItem
                     key={page}
-                    onClick={() => history.push(page.toLowerCase())}
+                    onClick={() => handleCloseAndNavigate(page)}
                   >
                     <Typography textAlign="center">{page}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
             </Box>
-            {/* İkinci LOGO */}
+
             <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
             <Typography
               variant="h5"
@@ -134,7 +136,7 @@ function MyNavbar({ onClickLogo }) {
               {pages.map((page) => (
                 <Button
                   key={page}
-                  onClick={handleCloseNavMenu}
+                  onClick={() => history.push(page.toLowerCase())}
                   sx={{
                     my: 2,
                     color: theme.palette.text.main,
