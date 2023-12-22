@@ -13,27 +13,23 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import theme from "./colors";
-import { styled } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
+import { useHistory } from "react-router-dom";
 
 const pages = ["Topluluklar", "Etkinlikler", "Hakkımızda"];
 const settings = ["Profilim", "Hesap", "Arayüz", "Çıkış Yap"];
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
+// ... (diğer importlar)
 
-function MyNavbar() {
+function MyNavbar({ onClickLogo }) {
+  const history = useHistory();
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -55,11 +51,12 @@ function MyNavbar() {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+            {/* İlk LOGO */}
             <Typography
               variant="h6"
               noWrap
               component="a"
-              href="#app-bar-with-responsive-menu"
+              onClick={onClickLogo}
               sx={{
                 mr: 2,
                 display: { xs: "none", md: "flex" },
@@ -103,18 +100,22 @@ function MyNavbar() {
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <MenuItem
+                    key={page}
+                    onClick={() => history.push(page.toLowerCase())}
+                  >
                     <Typography textAlign="center">{page}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
             </Box>
+            {/* İkinci LOGO */}
             <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
             <Typography
               variant="h5"
               noWrap
               component="a"
-              href="#app-bar-with-responsive-menu"
+              onClick={onClickLogo}
               sx={{
                 mr: 2,
                 display: { xs: "flex", md: "none" },
@@ -128,6 +129,7 @@ function MyNavbar() {
             >
               LOGO
             </Typography>
+
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <Button

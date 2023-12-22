@@ -2,6 +2,9 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
+    typography: {
+      fontFamily: ["San Francisco", "sans-serif"].join(","),
+    },
     primary: {
       main: "#eeeeee", // Örneğin, ana renk
     },
