@@ -36,10 +36,10 @@ function ResponsiveAppBar() {
         >
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <h1>Hoş Geldiniz .</h1>
+              <h1>KommuNex'e Hoş Geldiniz .</h1>
               <p>
                 Topluluğunuzun paylaşımlarını yapmak, biletlerini satmak,
-                kimlerin üye olduğunu görmek bizi kullanabilirsiniz.
+                kimlerin üye olduğunu görmek KommuNex'i kullanabilirsiniz.
               </p>
             </Grid>
           </Grid>
