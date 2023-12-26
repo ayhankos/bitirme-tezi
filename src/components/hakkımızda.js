@@ -25,6 +25,7 @@ const Hakkimizda = () => {
           padding: theme.spacing(4), // İçerik içindeki boşluk (örneğin, tema için varsayılan boşluk çarpanıyla çarpılabilir)
           borderRadius: theme.spacing(1), // Arka planın köşe yuvarlatma
           marginBottom: theme.spacing(4), // Box bileşenleri arasındaki boşluk
+          marginTop: theme.spacing(3),
         }}
       >
         <Container>
