@@ -33,13 +33,13 @@ const Etkinlikler = () => {
   // Her etkinlik için özel bir URL belirtin
   const events = [
     {
-      title: "Etkinlik Başlığı 1",
+      title: "Açık Hava Konseri",
       detail: "Etkinlik Detayları 1",
       imageUrl:
         "https://images.pexels.com/photos/1047940/pexels-photo-1047940.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     },
     {
-      title: "Etkinlik Başlığı 2",
+      title: "DJ Partisi",
       detail: "Etkinlik Detayları 2",
       imageUrl:
         "https://images.pexels.com/photos/2034851/pexels-photo-2034851.jpeg?auto=compress&cs=tinysrgb&w=800",
