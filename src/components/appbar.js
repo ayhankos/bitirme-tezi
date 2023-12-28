@@ -16,7 +16,7 @@ import theme from "./colors";
 import { useHistory } from "react-router-dom";
 
 const pages = ["Topluluklar", "Etkinlikler", "Hakkımızda"];
-const settings = ["Profilim", "Hesap", "Arayüz", "Çıkış Yap"];
+const settings = ["Profilim", "Hesap", "Çıkış Yap"];
 
 function MyNavbar({ onClickLogo }) {
   const history = useHistory();
