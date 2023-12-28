@@ -36,6 +36,10 @@ function MyNavbar({ onClickLogo }) {
     handleCloseNavMenu();
     history.push(page.toLowerCase());
   };
+  const handleCloseAndNavigateUser = (setting) => {
+    handleCloseUserMenu();
+    history.push(setting.toLowerCase());
+  };
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -84,7 +88,7 @@ function MyNavbar({ onClickLogo }) {
                 <MenuIcon />
               </IconButton>
               <Menu
-                id="menu-appbar"
+                id="menu-appbar-nav"
                 anchorEl={anchorElNav}
                 anchorOrigin={{
                   vertical: "bottom",
@@ -106,7 +110,7 @@ function MyNavbar({ onClickLogo }) {
                     key={page}
                     onClick={() => handleCloseAndNavigate(page)}
                   >
-                    <Typography textAlign="center">{page}</Typography>
+                    <Typography sx={{ textAlign: "center" }}>{page}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
@@ -159,7 +163,7 @@ function MyNavbar({ onClickLogo }) {
               </Tooltip>
               <Menu
                 sx={{ mt: "45px" }}
-                id="menu-appbar"
+                id="menu-appbar-user"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
                   vertical: "top",
@@ -174,8 +178,13 @@ function MyNavbar({ onClickLogo }) {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                  <MenuItem
+                    key={setting}
+                    onClick={() => handleCloseAndNavigateUser(setting)}
+                  >
+                    <Typography sx={{ textAlign: "center" }}>
+                      {setting}
+                    </Typography>
                   </MenuItem>
                 ))}
               </Menu>

@@ -6,6 +6,7 @@ import main from "./components/main";
 import Topluluklar from "./components/topluluklar";
 import Etkinlikler from "./components/etkinlikler";
 import Hakkimizda from "./components/hakkımızda";
+import Profilim from "./components/profilim";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/topluluklar" component={Topluluklar} />
         <Route path="/etkinlikler" component={Etkinlikler} />
         <Route path="/hakkımızda" component={Hakkimizda} />
+        <Route path="/profilim" component={Profilim} />
       </Switch>
     </Router>
   );
