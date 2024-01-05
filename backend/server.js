@@ -5,14 +5,14 @@ const apiRoutes = require("./routes/api");
 const app = express();
 
 // CORS ayarları
-const corsOptions = {
-  origin: "http://localhost:3000", // React uygulamasının adresi
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
-  optionsSuccessStatus: 204,
-};
-
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: "http://localhost:3000", // React uygulamasının adresi
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    optionsSuccessStatus: 204,
+  })
+);
 
 // JSON veri analizi için gerekli middleware
 app.use(express.json());
