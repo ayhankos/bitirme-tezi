@@ -7,11 +7,17 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import MyNavbar from "./appbar";
 import Footer from "./footer";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
-function Profilim() {
+const Profilim = () => {
+  const history = useHistory();
+
+  const handleClickLogo = () => {
+    history.push("/main");
+  };
   return (
     <>
-      <MyNavbar />
+      <MyNavbar onClickLogo={handleClickLogo} />
       <Container maxWidth="md" sx={{ marginTop: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
           Profilim
@@ -21,20 +27,20 @@ function Profilim() {
 
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
-            <Paper elevation={3} sx={{ padding: 2 }}>
+            <Paper elevation={6} sx={{ padding: 2 }}>
               <Typography variant="h6" gutterBottom>
                 Kullanıcı Bilgileri
               </Typography>
               <Typography variant="body1">
-                Ad: John Doe
+                Ad: Ayhan Emin Kös
                 <br />
-                E-posta: john@example.com
+                E-posta: ayhan@example.com
               </Typography>
             </Paper>
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <Paper elevation={3} sx={{ padding: 2 }}>
+            <Paper elevation={6} sx={{ padding: 2 }}>
               <Typography variant="h6" gutterBottom>
                 Profil Ayarları
               </Typography>
@@ -52,9 +58,10 @@ function Profilim() {
           </Grid>
         </Grid>
       </Container>
+
       <Footer />
     </>
   );
-}
+};
 
 export default Profilim;
