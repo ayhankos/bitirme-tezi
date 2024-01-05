@@ -8,6 +8,7 @@ import Grid from "@mui/material/Grid";
 import MyNavbar from "./appbar";
 import Footer from "./footer";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import theme from "./colors";
 
 const Profilim = () => {
   const history = useHistory();
@@ -27,7 +28,16 @@ const Profilim = () => {
 
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
-            <Paper elevation={6} sx={{ padding: 2 }}>
+            <Paper
+              elevation={4}
+              sx={{
+                padding: 2,
+                height: "8rem",
+                display: "flex",
+                flexDirection: "column",
+                backgroundColor: theme.palette.primary.main, // Özel ana renk
+              }}
+            >
               <Typography variant="h6" gutterBottom>
                 Kullanıcı Bilgileri
               </Typography>
@@ -40,18 +50,38 @@ const Profilim = () => {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <Paper elevation={6} sx={{ padding: 2 }}>
+            <Paper
+              elevation={4}
+              sx={{
+                padding: 2,
+                height: "8rem",
+                display: "flex",
+                flexDirection: "column",
+                backgroundColor: theme.palette.primary.main, // Özel ikincil renk
+              }}
+            >
               <Typography variant="h6" gutterBottom>
                 Profil Ayarları
               </Typography>
               <Button
                 variant="contained"
                 color="primary"
-                sx={{ marginBottom: 1 }}
+                sx={{
+                  marginBottom: 1,
+                  maxWidth: "20rem",
+                  backgroundColor: theme.palette.text.main,
+                }}
               >
                 Profil Fotoğrafını Değiştir
               </Button>
-              <Button variant="contained" color="secondary">
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{
+                  maxWidth: "20rem",
+                  backgroundColor: theme.palette.text.main,
+                }}
+              >
                 Şifreyi Değiştir
               </Button>
             </Paper>

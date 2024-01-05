@@ -11,6 +11,9 @@ const theme = createTheme({
     secondary: {
       main: "#e0e0e0", // Örneğin, ikincil renk
     },
+    tertiary: {
+      main: "#757575",
+    },
     text: {
       main: "#424242", // Örneğin, metin rengi
     },
