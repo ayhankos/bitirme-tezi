@@ -65,7 +65,6 @@ const Profilim = () => {
               </Typography>
               <Button
                 variant="contained"
-                color="primary"
                 sx={{
                   marginBottom: 1,
                   maxWidth: "20rem",
@@ -76,7 +75,6 @@ const Profilim = () => {
               </Button>
               <Button
                 variant="contained"
-                color="primary"
                 sx={{
                   maxWidth: "20rem",
                   backgroundColor: theme.palette.text.main,
