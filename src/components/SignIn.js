@@ -6,11 +6,10 @@ import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { Box, Grid, Link } from "@mui/material";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 const defaultTheme = createTheme();
 
 export const SignIn = () => {
@@ -18,34 +17,38 @@ export const SignIn = () => {
   const [password, setPassword] = useState("");
   const history = useHistory();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    //const data = new FormData(event.currentTarget);
 
-    fetch("https://dummyjson.com/users?limit=5&skip=10&select=email,password")
-      // acharlota@liveinternet.ru   M9lbMdydMN
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Network response was not ok. Status: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((data) => {
-        // Veriyi kontrol et ve girişi yönlendir
-        const user = data.users.find(
-          (user) => user.email === email && user.password === password
-        );
-
-        if (user) {
-          // Girişi yönlendir
-          history.push("/main");
-        } else {
-          alert("Email or password is incorrect. Please try again.");
-        }
-      })
-      .catch((error) => {
-        console.error("There was a problem with the fetch operation:", error);
+    try {
+      const response = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
       });
+
+      if (!response.ok) {
+        throw new Error(
+          `Network response was not ok. Status: ${response.status}`
+        );
+      }
+
+      const data = await response.json();
+
+      // Giriş başarılıysa yönlendirme yapabilirsiniz
+      if (data.success) {
+        history.push("/main");
+      } else {
+        alert("Giriş başarısız. Lütfen tekrar deneyin.");
+      }
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
   };
 
   return (
@@ -116,4 +119,5 @@ export const SignIn = () => {
     </ThemeProvider>
   );
 };
+
 export default SignIn;

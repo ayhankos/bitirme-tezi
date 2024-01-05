@@ -1,6 +1,6 @@
 {
-  "name": "bitirme-tezi",
-  "version": "0.1.0",
+  "name": "benim-projem",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -42,5 +42,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:5000"
 }
