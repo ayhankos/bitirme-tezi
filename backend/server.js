@@ -2,11 +2,13 @@ const express = require("express");
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
 const crypto = require("crypto");
+const cors = require("cors"); // cors middleware'ini ekleyin
 
 const app = express();
-const port = 3001;
+const port = 5000;
 
 app.use(bodyParser.json());
+app.use(cors()); // cors middleware'ini kullanın
 
 const db = mysql.createConnection({
   host: "localhost",
