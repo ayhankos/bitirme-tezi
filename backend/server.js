@@ -82,7 +82,7 @@ app.post("/login", (req, res) => {
       .digest("hex");
 
     db.query(
-      "SELECT * FROM BitirmeTezi WHERE email = ? AND password = ?",
+      "SELECT * FROM users WHERE email = ? AND password = ?",
       [email, hashedPassword],
       (err, results) => {
         if (err) {
