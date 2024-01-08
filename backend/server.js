@@ -50,15 +50,7 @@ app.post("/register", (req, res) => {
       [firstName, lastName, email, hashedPassword],
       (err, result) => {
         if (err) {
-          console.error("Error executing MySQL query:", err); // Hatanın detaylarını konsola yazdır
-
-          if (err.code === "ER_DUP_ENTRY") {
-            return res.status(400).json({
-              success: false,
-              message: "User with this email already exists",
-            });
-          }
-
+          console.error("Error executing MySQL query:", err);
           return res
             .status(500)
             .json({ success: false, message: "Internal Server Error" });
