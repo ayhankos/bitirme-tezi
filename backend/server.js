@@ -5,10 +5,17 @@ const crypto = require("crypto");
 const cors = require("cors");
 
 const app = express();
-const port = 5000;
+const port = 3001; // Backend'i 3001 portunda çalıştırın
 
 // Middleware'leri kullan
-app.use(cors({ origin: "http://localhost:3001", credentials: true }));
+app.use(
+  cors({
+    origin: "http://localhost:3000", // React uygulamasının çalıştığı adres
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    optionsSuccessStatus: 204,
+  })
+);
 app.use(bodyParser.json());
 
 // MySQL bağlantısı
