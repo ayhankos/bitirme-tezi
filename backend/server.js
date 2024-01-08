@@ -35,7 +35,6 @@ db.connect((err) => {
   console.log("Connected to MySQL database");
 });
 
-// Kullanıcı kaydı
 app.post("/register", (req, res) => {
   try {
     const { firstName, lastName, email, password } = req.body;
@@ -52,9 +51,11 @@ app.post("/register", (req, res) => {
       (err, result) => {
         if (err) {
           console.error("Error executing MySQL query:", err);
-          return res
-            .status(500)
-            .json({ success: false, message: "Internal Server Error" });
+          return res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+            error: err.message,
+          });
         }
 
         res.json({ success: true, message: "Registration successful" });
@@ -62,7 +63,11 @@ app.post("/register", (req, res) => {
     );
   } catch (error) {
     console.error("Error in registration:", error);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error.message,
+    });
   }
 });
 
@@ -83,9 +88,11 @@ app.post("/login", (req, res) => {
       (err, results) => {
         if (err) {
           console.error("Error executing MySQL query: " + err.stack);
-          return res
-            .status(500)
-            .json({ success: false, message: "Internal Server Error" });
+          return res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+            error: err.message,
+          });
         }
 
         if (results.length > 0) {
@@ -99,10 +106,13 @@ app.post("/login", (req, res) => {
     );
   } catch (error) {
     console.error("Error in login:", error);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error.message,
+    });
   }
 });
-
 // Server'ı dinle
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
