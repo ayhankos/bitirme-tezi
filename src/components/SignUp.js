@@ -37,14 +37,21 @@ function Signup() {
         }),
       });
 
-      const data = await response.json();
+      if (response.status === 200) {
+        const data = await response.json();
 
-      if (data.success) {
-        // Başarılı kayıt durumunda yapılacak işlemler
-        console.log("Kayıt başarılı");
+        if (data.success) {
+          // Başarılı kayıt durumunda yapılacak işlemler
+          console.log("Kayıt başarılı");
+        } else {
+          // Hata durumunda yapılacak işlemler
+          console.error("Kayıt başarısız: ", data.message);
+        }
       } else {
-        // Hata durumunda yapılacak işlemler
-        console.error("Kayıt başarısız: ", data.message);
+        console.error(
+          "Kayıt işlemi sırasında bir hata oluştu: ",
+          response.status
+        );
       }
     } catch (error) {
       console.error("Kayıt işlemi sırasında bir hata oluştu: ", error.message);

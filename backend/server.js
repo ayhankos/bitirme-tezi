@@ -50,7 +50,7 @@ app.post("/register", (req, res) => {
       [firstName, lastName, email, hashedPassword],
       (err, result) => {
         if (err) {
-          console.error("Error executing MySQL query: " + err.stack);
+          console.error("Error executing MySQL query:", err); // Hatanın detaylarını konsola yazdır
           return res
             .status(500)
             .json({ success: false, message: "Internal Server Error" });
