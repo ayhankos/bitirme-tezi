@@ -14,7 +14,7 @@ app.use(
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     optionsSuccessStatus: 204,
-    allowedHeaders: ["Content-Type", "Authorization"], // İzin verilen başlıkları belirtin
+    allowedHeaders: ["Content-Type", "Authorization"], // İzin verilen başlıklar
   })
 );
 app.use(bodyParser.json());
@@ -39,7 +39,7 @@ app.post("/register", (req, res) => {
   try {
     const { firstName, lastName, email, password } = req.body;
 
-    // Şifreyi hashle
+    // Şifreyi hashleme
     const hashedPassword = crypto
       .createHash("sha256")
       .update(password)
@@ -76,7 +76,7 @@ app.post("/login", (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Şifreyi hashle
+    // Şifreyi hashleme
     const hashedPassword = crypto
       .createHash("sha256")
       .update(password)
@@ -113,7 +113,7 @@ app.post("/login", (req, res) => {
     });
   }
 });
-// Server'ı dinle
+// Server'ı dinleme
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
