@@ -65,9 +65,9 @@ const Profilim = ({ userInfo }) => {
                 Kullanıcı Bilgileri
               </Typography>
               <Typography variant="body1">
-                Ad: {userInfo.firstName} {userInfo.lastName}
+                Ad: {userInfo?.firstName} {userInfo?.lastName}
                 <br />
-                E-posta: {userInfo.email}
+                E-posta: {userInfo?.email}
               </Typography>
             </Paper>
           </Grid>
