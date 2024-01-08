@@ -1,21 +1,46 @@
-// profilim.js
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 import MyNavbar from "./appbar";
 import Footer from "./footer";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 import theme from "./colors";
 
-const Profilim = ({ userInfo }) => {
+const Profilim = () => {
   const history = useHistory();
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [newPassword, setNewPassword] = useState("");
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    // Profil sayfası yüklendiğinde, backend'den gerçek kullanıcı bilgilerini al
+    const fetchUserInfo = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/get-user-info", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // Token'ı local storage'dan alabilirsiniz
+          },
+        });
+
+        if (response.status === 200) {
+          const data = await response.json();
+          setUserInfo(data.user);
+        } else {
+          console.error("Kullanıcı bilgileri alınamadı.");
+        }
+      } catch (error) {
+        console.error("Kullanıcı bilgileri alınırken bir hata oluştu: ", error);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
 
   const handleClickLogo = () => {
     history.push("/main");
