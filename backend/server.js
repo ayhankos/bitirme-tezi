@@ -46,7 +46,7 @@ app.post("/register", (req, res) => {
       .digest("hex");
 
     db.query(
-      "INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)",
+      "INSERT INTO users (firstName, lastName, email, password) VALUES (?, ?, ?, ?)",
       [firstName, lastName, email, hashedPassword],
       (err, result) => {
         if (err) {

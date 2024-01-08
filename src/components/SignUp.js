@@ -12,6 +12,8 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { useHistory } from "react-router-dom";
+
 const defaultTheme = createTheme();
 
 function Signup() {
@@ -19,6 +21,8 @@ function Signup() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const history = useHistory();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -41,8 +45,8 @@ function Signup() {
         const data = await response.json();
 
         if (data.success) {
-          // Başarılı kayıt durumunda yapılacak işlemler
           console.log("Kayıt başarılı");
+          history.push("/sign-in");
         } else {
           // Hata durumunda yapılacak işlemler
           console.error("Kayıt başarısız: ", data.message);
