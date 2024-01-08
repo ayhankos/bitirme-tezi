@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 
 // MySQL bağlantısı
 const db = mysql.createConnection({
-  host: "127.0.0.1",
+  host: "localhost",
   user: "root",
   password: "fenerbahce41",
   database: "BitirmeTezi",
