@@ -2,14 +2,16 @@ const express = require("express");
 const mysql = require("mysql");
 const bodyParser = require("body-parser");
 const crypto = require("crypto");
-const cors = require("cors"); // cors middleware'ini ekleyin
+const cors = require("cors");
 
 const app = express();
 const port = 5000;
 
+// Middleware'leri kullan
+app.use(cors());
 app.use(bodyParser.json());
-app.use(cors()); // cors middleware'ini kullanın
 
+// MySQL bağlantısı
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -93,6 +95,7 @@ app.post("/login", (req, res) => {
   }
 });
 
+// Server'ı dinle
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
