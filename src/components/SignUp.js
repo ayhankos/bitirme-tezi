@@ -20,15 +20,35 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    try {
+      const response = await fetch("http://localhost:3001/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Başarılı kayıt durumunda yapılacak işlemler
+        console.log("Kayıt başarılı");
+      } else {
+        // Hata durumunda yapılacak işlemler
+        console.error("Kayıt başarısız: ", data.message);
+      }
+    } catch (error) {
+      console.error("Kayıt işlemi sırasında bir hata oluştu: ", error.message);
+    }
   };
 
   return (
