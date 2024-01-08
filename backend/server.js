@@ -8,7 +8,7 @@ const app = express();
 const port = 5000;
 
 // Middleware'leri kullan
-app.use(cors({ origin: "http://localhost:5000", credentials: true }));
+app.use(cors({ origin: "http://localhost:3001", credentials: true }));
 app.use(bodyParser.json());
 
 // MySQL bağlantısı
