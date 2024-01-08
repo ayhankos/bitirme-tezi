@@ -58,7 +58,16 @@ app.post("/register", (req, res) => {
           });
         }
 
-        res.json({ success: true, message: "Registration successful" });
+        res.json({
+          success: true,
+          message: "Registration successful",
+          user: {
+            id: result.insertId,
+            firstName,
+            lastName,
+            email,
+          },
+        });
       }
     );
   } catch (error) {
