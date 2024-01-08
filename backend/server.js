@@ -111,10 +111,10 @@ app.post("/login", (req, res) => {
             success: true,
             message: "Login successful",
             user: {
-              id: result.insertId,
-              firstName: firstName,
-              lastName: lastName,
-              email: email,
+              id: user.id,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              email: user.email,
             },
           });
         } else {
