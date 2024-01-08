@@ -10,11 +10,11 @@ const port = 3001;
 // Middleware'leri kullan
 app.use(
   cors({
-    origin: "http://localhost:3000", // React uygulamasının çalıştığı adres
+    origin: "http://localhost:3000",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     optionsSuccessStatus: 204,
-    allowedHeaders: ["Content-Type", "Authorization"], // İzin verilen başlıklar
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(bodyParser.json());
@@ -24,7 +24,7 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "fenerbahce41",
-  database: "BitirmeTezi",
+  database: "BitirmeTezi", // Veritabanı adınızı buraya ekleyin
 });
 
 db.connect((err) => {
@@ -46,7 +46,7 @@ app.post("/register", (req, res) => {
       .digest("hex");
 
     db.query(
-      "INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)",
+      "INSERT INTO BitirmeTezi (first_name, last_name, email, password) VALUES (?, ?, ?, ?)",
       [firstName, lastName, email, hashedPassword],
       (err, result) => {
         if (err) {
@@ -71,7 +71,6 @@ app.post("/register", (req, res) => {
   }
 });
 
-// Kullanıcı girişi kontrolü
 app.post("/login", (req, res) => {
   try {
     const { email, password } = req.body;
@@ -83,7 +82,7 @@ app.post("/login", (req, res) => {
       .digest("hex");
 
     db.query(
-      "SELECT * FROM users WHERE email = ? AND password = ?",
+      "SELECT * FROM BitirmeTezi WHERE email = ? AND password = ?",
       [email, hashedPassword],
       (err, results) => {
         if (err) {
@@ -113,7 +112,7 @@ app.post("/login", (req, res) => {
     });
   }
 });
-// Server'ı dinleme
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
