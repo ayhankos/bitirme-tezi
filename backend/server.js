@@ -95,7 +95,19 @@ app.post("/login", (req, res) => {
         }
 
         if (results.length > 0) {
-          res.json({ success: true, message: "Login successful" });
+          const user = results[0]; // İlk bulunan kullanıcıyı alıyoruz
+
+          // Kullanıcı bilgilerini geri döndür
+          res.json({
+            success: true,
+            message: "Login successful",
+            user: {
+              id: user.id,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              email: user.email,
+            },
+          });
         } else {
           res
             .status(401)

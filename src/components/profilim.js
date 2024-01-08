@@ -10,12 +10,13 @@ import Footer from "./footer";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import theme from "./colors";
 
-const Profilim = () => {
+const Profilim = ({ userInfo }) => {
   const history = useHistory();
 
   const handleClickLogo = () => {
     history.push("/main");
   };
+
   return (
     <>
       <MyNavbar onClickLogo={handleClickLogo} />
@@ -35,16 +36,16 @@ const Profilim = () => {
                 height: "8rem",
                 display: "flex",
                 flexDirection: "column",
-                backgroundColor: theme.palette.primary.main, // Özel ana renk
+                backgroundColor: theme.palette.primary.main,
               }}
             >
               <Typography variant="h6" gutterBottom>
                 Kullanıcı Bilgileri
               </Typography>
               <Typography variant="body1">
-                Ad: Ayhan Emin Kös
+                Ad: {userInfo.firstName} {userInfo.lastName}
                 <br />
-                E-posta: ayhan@example.com
+                E-posta: {userInfo.email}
               </Typography>
             </Paper>
           </Grid>
@@ -57,7 +58,7 @@ const Profilim = () => {
                 height: "8rem",
                 display: "flex",
                 flexDirection: "column",
-                backgroundColor: theme.palette.primary.main, // Özel ikincil renk
+                backgroundColor: theme.palette.primary.main,
               }}
             >
               <Typography variant="h6" gutterBottom>
