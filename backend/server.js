@@ -5,7 +5,7 @@ const crypto = require("crypto");
 const cors = require("cors");
 
 const app = express();
-const port = 3001; // Backend'i 3001 portunda çalıştırın
+const port = 3001;
 
 // Middleware'leri kullan
 app.use(
@@ -14,6 +14,7 @@ app.use(
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     optionsSuccessStatus: 204,
+    allowedHeaders: ["Content-Type", "Authorization"], // İzin verilen başlıkları belirtin
   })
 );
 app.use(bodyParser.json());
