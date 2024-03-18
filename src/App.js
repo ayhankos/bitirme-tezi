@@ -8,7 +8,8 @@ import Etkinlikler from "./components/etkinlikler";
 import Hakkimizda from "./components/hakkımızda";
 import Profilim from "./components/profilim";
 import Admin from "./components/admin/admin";
-import UserList from "./components/admin/eventUserList";
+import eventUserList from "./components/admin/eventUserList";
+import userList from "./components/admin/userList";
 
 export default function App() {
   return (
@@ -22,7 +23,8 @@ export default function App() {
         <Route path="/hakkımızda" component={Hakkimizda} />
         <Route path="/profilim" component={Profilim} />
         <Route path="/admin" component={Admin} />
-        <Route path="/userList" component={UserList} />
+        <Route path="/eventUserList" component={eventUserList} />
+        <Route path="/userList" component={userList} />
       </Switch>
     </Router>
   );
