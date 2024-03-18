@@ -14,6 +14,7 @@ const columns = [
     headerName: "Actions",
     width: 150,
     renderCell: (params) => {
+      const { rows, setRows } = params.api.props; // rows ve setRows değişkenlerine erişim sağlanıyor
       const handleDelete = async () => {
         const userId = params.row.id;
         try {
