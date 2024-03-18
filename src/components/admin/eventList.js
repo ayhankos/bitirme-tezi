@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
-import AdminNavbar from "./AdminNavbar";
+
 import theme from "../colors";
+import { fetchEvents } from "./fetchEvents";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
-  { field: "user_id", headerName: "User ID", width: 130 },
   { field: "title", headerName: "Title", width: 200 },
-  { field: "registration_date", headerName: "Registration Date", width: 150 },
+  { field: "description", headerName: "Description", width: 300 },
+  { field: "date", headerName: "Date", width: 150 },
   {
     field: "actions",
     headerName: "Actions",
@@ -29,7 +30,7 @@ const columns = [
           }
 
           // Silme işlemi başarılı olduysa, etkinlik listesini güncelleyin
-          fetchUserApplications();
+          fetchEvents();
         } catch (error) {
           console.error("Error deleting event:", error);
         }
@@ -52,31 +53,26 @@ const columns = [
 ];
 
 export default function EventTable() {
-  const [userApplications, setUserApplications] = useState([]);
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    const fetchUserApplications = async () => {
+    const fetchEvents = async () => {
       try {
-        const response = await fetch("http://localhost:3001/user-applications");
-        if (!response.ok) {
-          throw new Error("Failed to fetch user applications");
-        }
-        const data = await response.json();
-        setUserApplications(data);
+        const data = await fetchEvents();
+        setEvents(data);
       } catch (error) {
-        console.error("Error fetching user applications:", error);
+        console.error("Error fetching events:", error);
       }
     };
 
-    fetchUserApplications();
+    fetchEvents();
   }, []);
 
   return (
     <>
-      <AdminNavbar />
       <Box sx={{ height: 400, width: "100%" }}>
         <DataGrid
-          rows={userApplications}
+          rows={events}
           columns={columns}
           pageSize={5}
           checkboxSelection

@@ -10,6 +10,7 @@ import Profilim from "./components/profilim";
 import Admin from "./components/admin/admin";
 import eventUserList from "./components/admin/eventUserList";
 import userList from "./components/admin/userList";
+import eventList from "./components/admin/eventList";
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/admin" component={Admin} />
         <Route path="/eventUserList" component={eventUserList} />
         <Route path="/userList" component={userList} />
+        <Route path="/eventList" component={eventList} />
       </Switch>
     </Router>
   );
