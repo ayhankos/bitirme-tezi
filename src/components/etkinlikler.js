@@ -55,22 +55,13 @@ const Etkinlikler = () => {
 
   const handleApplyEvent = async (eventId, userId) => {
     try {
-      const token = localStorage.getItem("accessToken"); // Assuming this is where you store the token
-      if (!token) {
-        console.error("Token bulunamadı!");
-        return;
-      }
-
-      // Token'ın üç bölümden oluştuğunu ve noktalarla ayrıldığını kontrol edin
-      if (token.split(".").length !== 3) {
-        console.error("Token formatı hatalı!");
-        return;
-      }
+      const origin = window.location.origin; // İstemcinin adresini alın
       const response = await fetch("http://localhost:3001/apply_event", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Include "Bearer" prefix and space
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          audience: origin,
         },
         body: JSON.stringify({ eventId, userId }),
       });
@@ -122,7 +113,7 @@ const Etkinlikler = () => {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => handleApplyEvent(event.id, userId)} // handleApplyEvent fonksiyonuna tıklama olayını bağlama
+                      onClick={() => handleApplyEvent(event.eventId, userId)} // handleApplyEvent fonksiyonuna tıklama olayını bağlama
                     >
                       Başvuru Yap
                     </Button>
@@ -138,4 +129,5 @@ const Etkinlikler = () => {
     </>
   );
 };
+
 export default Etkinlikler;

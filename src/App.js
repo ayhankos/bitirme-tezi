@@ -24,7 +24,7 @@ export default function App() {
         <Route path="/hakkımızda" component={Hakkimizda} />
         <Route path="/profilim" component={Profilim} />
         <Route path="/admin" component={Admin} />
-        <Route path="/eventUserList" component={eventUserList} />
+        <Route path="/etkinlikbasvuru" component={eventUserList} />
         <Route path="/userList" component={userList} />
         <Route path="/eventList" component={eventList} />
       </Switch>
