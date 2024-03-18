@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
-import AdminNavbar from "./adminNavbar";
+import AdminNavbar from "./AdminNavbar";
 import theme from "../colors";
 import { fetchEvents } from "./fetchEvents";
 
