@@ -42,6 +42,9 @@ export const SignIn = () => {
 
       // Giriş başarılıysa yönlendirme yapabilirsiniz
       if (data.success) {
+        if (data.isAdmin) {
+          history.push("/admin");
+        }
         history.push("/main");
       } else {
         alert("Giriş başarısız. Lütfen tekrar deneyin.");
