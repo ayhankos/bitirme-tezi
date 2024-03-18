@@ -56,7 +56,7 @@ export default function EventTable() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    const fetchEvents = async () => {
+    const fetchData = async () => {
       try {
         const data = await fetchEvents();
         setEvents(data);
@@ -65,7 +65,7 @@ export default function EventTable() {
       }
     };
 
-    fetchEvents();
+    fetchData();
   }, []);
 
   return (
