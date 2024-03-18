@@ -8,6 +8,7 @@ import Etkinlikler from "./components/etkinlikler";
 import Hakkimizda from "./components/hakkımızda";
 import Profilim from "./components/profilim";
 import Admin from "./components/admin/admin";
+import UserList from "./components/admin/eventUserList";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/hakkımızda" component={Hakkimizda} />
         <Route path="/profilim" component={Profilim} />
         <Route path="/admin" component={Admin} />
+        <Route path="/userList" component={UserList} />
       </Switch>
     </Router>
   );
