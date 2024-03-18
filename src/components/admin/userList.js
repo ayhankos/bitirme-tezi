@@ -2,64 +2,72 @@ import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
 import AdminNavbar from "./adminNavbar";
-import { fetchUsers } from "./fetchUsers"; // fetchUsers fonksiyonunu içe aktar
+import theme from "../colors";
+import { fetchEvents } from "./fetchEvents";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
+  { field: "user_id", headerName: "userID", width: 70 },
   { field: "firstName", headerName: "First Name", width: 130 },
   { field: "lastName", headerName: "Last Name", width: 130 },
-  { field: "email", headerName: "Email", width: 200 },
+  { field: "title", headerName: "Title", width: 200 },
+  { field: "registration_date", headerName: "Registration Date", width: 150 },
   {
     field: "actions",
     headerName: "Actions",
     width: 150,
     renderCell: (params) => {
       const handleDelete = async () => {
-        const userId = params.row.id;
+        const eventId = params.row.id;
         try {
           const response = await fetch(
-            `http://localhost:3001/users/${userId}`,
+            `http://localhost:3001/events/${eventId}`,
             {
               method: "DELETE",
             }
           );
 
           if (!response.ok) {
-            throw new Error("Failed to delete user");
+            throw new Error("Failed to delete event");
           }
-
-          // Silme işlemi başarılı olduysa, kullanıcı listesini güncelleyin
-          const updatedRows = rows.filter((user) => user.id !== userId);
-          setRows(updatedRows);
+          //
+          fetchEvents();
         } catch (error) {
-          console.error("Error deleting user:", error);
+          console.error("Error deleting event:", error);
         }
       };
 
       return (
-        <Button variant="contained" color="secondary" onClick={handleDelete}>
-          Onayla Sil
+        <Button
+          variant="filled"
+          sx={{
+            backgroundColor: theme.palette.secondary.main,
+            color: theme.palette.tertiary.main,
+          }}
+          onClick={handleDelete}
+        >
+          Delete
         </Button>
       );
     },
   },
 ];
 
-export default function DataTable() {
+export default function EventTable() {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchEventData = async () => {
       try {
-        const data = await fetchUsers();
+        const data = await fetchEvents();
         setRows(data);
       } catch (error) {
-        console.error("Error fetching users:", error);
+        console.error("Error fetching events:", error);
       }
     };
 
-    fetchData();
-  }, []); // Boş bağımlılık dizisi kullanarak yalnızca bileşenin monte edildiğinde çalışmasını sağlayın
+    fetchEventData();
+  }, []);
 
   return (
     <>
@@ -68,7 +76,7 @@ export default function DataTable() {
         <DataGrid
           rows={rows}
           columns={columns}
-          pageSize={5}
+          pageSize={10}
           checkboxSelection
         />
       </Box>
