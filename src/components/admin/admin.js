@@ -41,7 +41,7 @@ const Admin = () => {
 
   return (
     <>
-      <AdminNavbar /> {/* Değiştirildi */}
+      <AdminNavbar />
       <Container maxWidth="sm">
         <Box
           sx={{
