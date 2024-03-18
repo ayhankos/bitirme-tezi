@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
-import AdminNavbar from "./adminNavbar";
+
+import { fetchUsers } from "./fetchUsers"; // fetchUsers fonksiyonunu içe aktar
+import theme from "../colors";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -14,19 +16,6 @@ const columns = [
     width: 150,
     renderCell: (params) => {
       const handleDelete = async () => {
-        const fetchUsers = async () => {
-          try {
-            const response = await fetch("http://localhost:3001/users");
-            if (!response.ok) {
-              throw new Error("Failed to fetch users");
-            }
-            const data = await response.json();
-            setRows(data);
-          } catch (error) {
-            console.error("Error fetching users:", error);
-          }
-        };
-
         const userId = params.row.id;
         try {
           const response = await fetch(
@@ -40,7 +29,7 @@ const columns = [
             throw new Error("Failed to delete user");
           }
 
-          // Kullanıcı başarıyla silindi, kullanıcıları yeniden yükle
+          // Silme işlemi başarılı olduysa, kullanıcı listesini güncelleyin
           fetchUsers();
         } catch (error) {
           console.error("Error deleting user:", error);
@@ -48,7 +37,14 @@ const columns = [
       };
 
       return (
-        <Button variant="contained" color="secondary" onClick={handleDelete}>
+        <Button
+          variant="filled"
+          sx={{
+            backgroundColor: theme.palette.secondary.main,
+            color: theme.palette.tertiary.main,
+          }}
+          onClick={handleDelete}
+        >
           Onayla Sil
         </Button>
       );
@@ -57,36 +53,19 @@ const columns = [
 ];
 
 export default function DataTable() {
-  const [rows, setRows] = useState([]); // setRows'i tanımla
-
-  const fetchUsers = async () => {
-    try {
-      const response = await fetch("http://localhost:3001/users");
-      if (!response.ok) {
-        throw new Error("Failed to fetch users");
-      }
-      const data = await response.json();
-      setRows(data);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  };
+  const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3001/users");
-        if (!response.ok) {
-          throw new Error("Failed to fetch users");
-        }
-        const data = await response.json();
+        const data = await fetchUsers(); // fetchUsers fonksiyonunu çağır
         setRows(data);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
     };
 
-    fetchUsers();
+    fetchData();
   }, []);
 
   return (
