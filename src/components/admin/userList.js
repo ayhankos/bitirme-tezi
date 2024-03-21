@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button } from "@mui/material";
-
+import AdminNavbar from "./AdminNavbar";
 import { fetchUsers } from "./fetchUsers"; // fetchUsers fonksiyonunu içe aktar
 import theme from "../colors";
 
@@ -37,16 +37,19 @@ const columns = [
       };
 
       return (
-        <Button
-          variant="filled"
-          sx={{
-            backgroundColor: theme.palette.secondary.main,
-            color: theme.palette.tertiary.main,
-          }}
-          onClick={handleDelete}
-        >
-          Onayla Sil
-        </Button>
+        <>
+          <AdminNavbar />
+          <Button
+            variant="filled"
+            sx={{
+              backgroundColor: theme.palette.secondary.main,
+              color: theme.palette.tertiary.main,
+            }}
+            onClick={handleDelete}
+          >
+            Onayla Sil
+          </Button>
+        </>
       );
     },
   },

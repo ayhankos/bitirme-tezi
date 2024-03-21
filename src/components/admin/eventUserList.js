@@ -71,6 +71,7 @@ export default function EventTable() {
 
   return (
     <>
+      <AdminNavbar />
       <Box sx={{ height: 400, width: "100%" }}>
         <DataGrid
           rows={rows}

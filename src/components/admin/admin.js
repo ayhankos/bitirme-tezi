@@ -41,6 +41,7 @@ const Admin = () => {
 
   return (
     <>
+      <AdminNavbar />
       <Container maxWidth="sm">
         <Box
           sx={{
