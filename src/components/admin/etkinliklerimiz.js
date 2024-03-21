@@ -8,8 +8,7 @@ import { fetchEvents } from "./fetchEvents";
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
   { field: "title", headerName: "Title", width: 200 },
-  { field: "description", headerName: "Description", width: 300 },
-  { field: "date", headerName: "Date", width: 150 },
+  { field: "detail", headerName: "detail", width: 300 },
   {
     field: "actions",
     headerName: "Actions",
