@@ -38,7 +38,6 @@ const columns = [
 
       return (
         <>
-          <AdminNavbar />
           <Button
             variant="filled"
             sx={{
@@ -73,6 +72,7 @@ export default function DataTable() {
 
   return (
     <>
+      <AdminNavbar />
       <Box sx={{ height: 400, width: "100%" }}>
         <DataGrid
           rows={rows}

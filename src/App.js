@@ -9,7 +9,7 @@ import Hakkimizda from "./components/hakkımızda";
 import Profilim from "./components/profilim";
 import Admin from "./components/admin/admin";
 import Üyeler from "./components/admin/Üyeler";
-import events from "./components/admin/events";
+import etkinliklerimiz from "./components/admin/etkinliklerimiz";
 import Başvurular from "./components/admin/Başvurular";
 
 export default function App() {
@@ -25,7 +25,7 @@ export default function App() {
         <Route path="/profilim" component={Profilim} />
         <Route path="/admin" component={Admin} />
         <Route path="/Üyeler" component={Üyeler} />
-        <Route path="/events" component={events} />
+        <Route path="/etkinliklerimiz" component={etkinliklerimiz} />
         <Route path="/Başvurular" component={Başvurular} />
       </Switch>
     </Router>
