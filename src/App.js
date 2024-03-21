@@ -8,9 +8,9 @@ import Etkinlikler from "./components/etkinlikler";
 import Hakkimizda from "./components/hakkımızda";
 import Profilim from "./components/profilim";
 import Admin from "./components/admin/admin";
-import userList from "./components/admin/userList";
-import eventList from "./components/admin/eventList";
-import eventUserList from "./components/admin/eventUserList";
+import Üyeler from "./components/admin/Üyeler";
+import events from "./components/admin/events";
+import Başvurular from "./components/admin/Başvurular";
 
 export default function App() {
   return (
@@ -24,9 +24,9 @@ export default function App() {
         <Route path="/hakkımızda" component={Hakkimizda} />
         <Route path="/profilim" component={Profilim} />
         <Route path="/admin" component={Admin} />
-        <Route path="/userList" component={userList} />
-        <Route path="/eventList" component={eventList} />
-        <Route path="/eventUserLİst" component={eventUserList} />
+        <Route path="/Üyeler" component={Üyeler} />
+        <Route path="/events" component={events} />
+        <Route path="/Başvurular" component={Başvurular} />
       </Switch>
     </Router>
   );

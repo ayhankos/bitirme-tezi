@@ -42,6 +42,8 @@ export const SignIn = () => {
 
       // Giriş başarılıysa yönlendirme yapabilirsiniz
       if (data.success) {
+        localStorage.setItem("accessToken", data.token);
+
         if (data.isAdmin) {
           history.push("/admin");
         }

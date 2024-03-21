@@ -109,6 +109,7 @@ app.post("/login", (req, res) => {
             { expiresIn: "100h", audience: "http://localhost:3000" }
           );
           console.log("oluşturulan token -> ", token);
+
           // Kullanıcı giriş yaptıktan sonra, isAdmin kontrolü yap
           if (user.isAdmin === 1) {
             // Kullanıcı admin ise admin sayfasına yönlendir
@@ -267,7 +268,7 @@ app.get("/user_events", (req, res) => {
 
   try {
     // Tokeni doğrula
-    const decodedToken = verify(token.split(".")[1], JWT_SECRET_KEY);
+    const decodedToken = verify(token.split(" ")[1], JWT_SECRET_KEY);
 
     // Token içindeki kullanıcı bilgilerini al
     const userId = decodedToken.userId;
@@ -306,7 +307,7 @@ app.post("/apply_event", (req, res) => {
     if (!token) {
       return res.status(401).json({ success: false, message: "Unauthorized" });
     }
-    const decodedToken = verify(token.split(".")[1], JWT_SECRET_KEY);
+    const decodedToken = verify(token.split(" ")[1], JWT_SECRET_KEY);
     const currentTime = Date.now() / 1000;
     if (currentTime > decodedToken.exp) {
       return res
