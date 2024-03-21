@@ -54,6 +54,7 @@ const Etkinlikler = () => {
   };
 
   const handleApplyEvent = async (eventId, userId) => {
+    console.log(localStorage.getItem("accessToken"));
     try {
       const origin = window.location.origin; // İstemcinin adresini alın
       const response = await fetch("http://localhost:3001/apply_event", {

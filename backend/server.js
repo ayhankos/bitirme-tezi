@@ -259,8 +259,8 @@ app.delete("/users/:id", (req, res) => {
 });
 
 app.get("/user_events", (req, res) => {
-  const token = req.headers.authorization.split(".")[1];
-
+  const token = req.headers.authorization;
+  console.log(token);
   if (!token) {
     return res.status(401).json({ success: false, message: "Unauthorized" });
   }
@@ -300,8 +300,9 @@ app.get("/user_events", (req, res) => {
 });
 
 app.post("/apply_event", (req, res) => {
+  const token = req.headers.authorization;
+  console.log(token);
   try {
-    const token = req.headers.authorization;
     if (!token) {
       return res.status(401).json({ success: false, message: "Unauthorized" });
     }
