@@ -15,7 +15,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import theme from "../colors";
 import { useHistory } from "react-router-dom";
 
-const pages = ["Üyeler", "Etkinliklerimiz", "Başvurular"];
+const pages = ["Admin", "Üyeler", "Etkinliklerimiz", "Başvurular"];
 const settings = ["Profilim", "Hesap", "Çıkış Yap"];
 
 function MyNavbar({ onClickLogo }) {
