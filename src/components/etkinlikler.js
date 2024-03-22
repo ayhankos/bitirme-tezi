@@ -114,7 +114,7 @@ const Etkinlikler = () => {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={() => handleApplyEvent(event.eventId, userId)} // handleApplyEvent fonksiyonuna tıklama olayını bağlama
+                      onClick={() => handleApplyEvent(event.id, userId)} // handleApplyEvent fonksiyonuna tıklama olayını bağlama
                     >
                       Başvuru Yap
                     </Button>
