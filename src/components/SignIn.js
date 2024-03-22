@@ -42,12 +42,13 @@ export const SignIn = () => {
 
       // Giriş başarılıysa yönlendirme yapabilirsiniz
       if (data.success) {
+        localStorage.setItem("accessToken", data.token);
         if (data.isAdmin) {
           console.log("Backend response:", data);
           history.push("/admin");
+        } else {
+          history.push("/main");
         }
-        localStorage.setItem("accessToken", data.token);
-        history.push("/main");
       } else {
         alert("Giriş başarısız. Lütfen tekrar deneyin.");
       }
