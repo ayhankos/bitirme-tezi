@@ -1,6 +1,7 @@
 export async function fetchUserEvents() {
   try {
-    const token = localStorage.getItem("token"); // Kullanıcı token'ını al
+    const token = localStorage.getItem("accessToken"); // Kullanıcı token'ını al
+    console.log(`Bearer ${localStorage.getItem("accessToken")}`);
     const response = await fetch("http://localhost:3001/user_events", {
       headers: {
         Authorization: `Bearer ${token}`,

@@ -36,7 +36,7 @@ export default function Başvurular() {
           rows={rows}
           columns={columns}
           pageSize={10}
-          checkboxSelection={false} // Kullanıcıların satırları seçmesini engelle
+          checkboxSelection={true} // Kullanıcıların satırları seçmesini engelle
         />
       </Box>
     </>
