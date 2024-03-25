@@ -17,6 +17,9 @@ const theme = createTheme({
     text: {
       main: "#424242", // Örneğin, metin rengi
     },
+    modal: {
+      main: "#eeeeee",
+    },
   },
   // Diğer tema özellikleri buraya eklenebilir
 });

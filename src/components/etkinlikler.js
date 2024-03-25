@@ -102,7 +102,7 @@ const Etkinlikler = () => {
         <Grid container spacing={2}>
           {events.map((event, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
-              <Item sx={{ border: 0.5 }}>
+              <Item sx={{ border: 0.5, borderRadius: 2 }}>
                 <Card sx={{ height: "100%" }}>
                   <CardMedia
                     component="img"
@@ -150,20 +150,25 @@ const Etkinlikler = () => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 400,
-            bgcolor: "background.paper",
-            border: "2px solid #000",
+            width: 200,
+            bgcolor: "#fff",
             boxShadow: 24,
+            border: "1px solid",
+            borderRadius: "3rem",
             p: 4,
+            textAlign: "center",
           }}
         >
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography variant="h5" id="modal-modal-title" gutterBottom>
             Başvuru Başarılı!
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Başvurunuz başarıyla alınmıştır.
-          </Typography>
-          <Button onClick={handleCloseSuccessModal}>Kapat</Button>
+          <Button
+            onClick={handleCloseSuccessModal}
+            variant="contained"
+            color="primary"
+          >
+            Onay
+          </Button>
         </Box>
       </Modal>
     </>
