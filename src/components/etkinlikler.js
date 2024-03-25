@@ -9,6 +9,7 @@ import {
   CardContent,
   CardMedia,
   Button,
+  Modal,
 } from "@mui/material";
 import MyNavbar from "./appbar";
 import Footer from "./footer";
@@ -27,6 +28,7 @@ const Etkinlikler = () => {
   const history = useHistory();
   const [events, setEvents] = useState([]);
   const [userId, setUserId] = useState(""); // Kullanıcı kimliği
+  const [successModalOpen, setSuccessModalOpen] = useState(false); // Başvuru başarılı modalinin açık olup olmadığını belirleyen state
 
   useEffect(() => {
     // Kullanıcı kimliğini al
@@ -69,12 +71,19 @@ const Etkinlikler = () => {
       const data = await response.json();
       if (response.ok) {
         console.log("Başvuru başarılı:", data.message);
+        // Başvuru başarılı olduğunda modalı aç
+        setSuccessModalOpen(true);
       } else {
         console.error("Başvuru başarısız:", data.error);
       }
     } catch (error) {
       console.error("Başvuru sırasında bir hata oluştu:", error);
     }
+  };
+
+  const handleCloseSuccessModal = () => {
+    // Modalı kapat
+    setSuccessModalOpen(false);
   };
 
   return (
@@ -127,6 +136,36 @@ const Etkinlikler = () => {
       </Box>
 
       <Footer />
+
+      {/* Başvuru başarılı olduğunda gösterilecek modal */}
+      <Modal
+        open={successModalOpen}
+        onClose={handleCloseSuccessModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Başvuru Başarılı!
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Başvurunuz başarıyla alınmıştır.
+          </Typography>
+          <Button onClick={handleCloseSuccessModal}>Kapat</Button>
+        </Box>
+      </Modal>
     </>
   );
 };
