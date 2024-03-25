@@ -73,12 +73,16 @@ export default function DataTable() {
   return (
     <>
       <AdminNavbar />
-      <Box sx={{ height: 400, width: "100%" }}>
+      <Box sx={{ height: 800, width: "100%" }}>
         <DataGrid
           rows={rows}
           columns={columns}
-          pageSize={5}
+          pageSize={10}
           checkboxSelection
+          sx={{
+            borderRadius: "4%",
+            marginX: "2%",
+          }}
         />
       </Box>
     </>
