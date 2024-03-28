@@ -20,7 +20,7 @@ const Profilim = () => {
     // Profil sayfası yüklendiğinde, backend'den gerçek kullanıcı bilgilerini al
     const fetchUserInfo = async () => {
       try {
-        const response = await fetch("http://localhost:3001/users", {
+        const response = await fetch("http://localhost:3001/user_profile", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

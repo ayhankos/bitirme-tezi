@@ -242,21 +242,57 @@ app.get("/users", (req, res) => {
   });
 });
 
-app.get("/users/:id", (req, res) => {
-  const userId = req.params.id;
+app.get("/user_profile", (req, res) => {
+  const token = req.headers.authorization;
+  console.log(token);
+  if (!token) {
+    return res.status(401).json({ success: false, message: "Unauthorized" });
+  }
 
-  db.query("SELECT * FROM users WHERE id = ?", [userId], (err, result) => {
-    if (err) {
-      console.error("Error inserting user:", err);
-      return res.status(500).json({
-        success: false,
-        message: "Kullanıcı eklenemedi.",
-        error: err.message,
-      });
-    }
+  try {
+    // Tokeni doğrula
+    const decodedToken = verify(token.split(" ")[1], JWT_SECRET_KEY);
 
-    res.json({ success: true, message: "User deleted successfully" });
-  });
+    // Token içindeki kullanıcı bilgilerini al
+    const userId = decodedToken.userId;
+
+    // Kullanıcıya ait profil bilgilerini sorgula
+    const query = `
+      SELECT id, firstName, lastName, email
+      FROM users
+      WHERE id = ?
+    `;
+
+    db.query(query, [userId], (err, results) => {
+      if (err) {
+        console.error("Error executing MySQL query:", err);
+        return res.status(500).json({
+          success: false,
+          message: "Server Error User Profile",
+          error: err.message,
+        });
+      }
+
+      if (results.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: "User not found",
+        });
+      }
+
+      const userProfile = {
+        id: results[0].id,
+        firstName: results[0].firstName,
+        lastName: results[0].lastName,
+        email: results[0].email,
+      };
+
+      res.json(userProfile);
+    });
+  } catch (error) {
+    console.error("Error decoding token:", error);
+    res.status(401).json({ success: false, message: "Unauthorized" });
+  }
 });
 
 app.delete("/users/:id", (req, res) => {
@@ -282,14 +318,10 @@ app.get("/user_events", (req, res) => {
   if (!token) {
     return res.status(401).json({ success: false, message: "Unauthorized" });
   }
-
   try {
-    // Tokeni doğrula
     const decodedToken = verify(token.split(" ")[1], JWT_SECRET_KEY);
-
     // Token içindeki kullanıcı bilgilerini al
     const userId = decodedToken.userId;
-
     // Kullanıcıya ait etkinlikleri sorgula
     const query = `
       SELECT ue.id, ue.registration_date, ue.user_id, u.firstName, u.lastName, e.title
@@ -298,7 +330,6 @@ app.get("/user_events", (req, res) => {
       INNER JOIN events e ON ue.event_id = e.id
       WHERE ue.user_id = ?
     `;
-
     db.query(query, [userId], (err, results) => {
       if (err) {
         console.error("Error executing MySQL query:", err);
