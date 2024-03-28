@@ -242,6 +242,23 @@ app.get("/users", (req, res) => {
   });
 });
 
+app.get("/users/:id", (req, res) => {
+  const userId = req.params.id;
+
+  db.query("SELECT * FROM users WHERE id = ?", [userId], (err, result) => {
+    if (err) {
+      console.error("Error inserting user:", err);
+      return res.status(500).json({
+        success: false,
+        message: "Kullanıcı eklenemedi.",
+        error: err.message,
+      });
+    }
+
+    res.json({ success: true, message: "User deleted successfully" });
+  });
+});
+
 app.delete("/users/:id", (req, res) => {
   const userId = req.params.id;
 

@@ -14,7 +14,7 @@ const Profilim = () => {
   const history = useHistory();
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [newPassword, setNewPassword] = useState("");
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState([]);
 
   useEffect(() => {
     // Profil sayfası yüklendiğinde, backend'den gerçek kullanıcı bilgilerini al
@@ -27,10 +27,11 @@ const Profilim = () => {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // Token'ı local storage'dan alabilirsiniz
           },
         });
+        const data = await response.json();
+
+        setUserInfo(data);
 
         if (response.status === 200) {
-          const data = await response.json();
-          setUserInfo(data);
         } else {
           console.error("Kullanıcı bilgileri alınamadı.");
         }
@@ -42,6 +43,7 @@ const Profilim = () => {
     fetchUserInfo();
   }, []);
 
+  console.log("array", userInfo);
   const handleClickLogo = () => {
     history.push("/main");
   };
