@@ -36,10 +36,6 @@ function MyNavbar({ onClickLogo }) {
     handleCloseNavMenu();
     history.push(page.toLowerCase());
   };
-  const handleCloseAndNavigateUser = (setting) => {
-    handleCloseUserMenu();
-    history.push(setting.toLowerCase());
-  };
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -47,6 +43,13 @@ function MyNavbar({ onClickLogo }) {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    // Oturum bilgisini temizle
+    localStorage.removeItem("accessToken");
+    // Giriş sayfasına yönlendir
+    history.push("/sign-in");
   };
 
   return (
@@ -180,7 +183,13 @@ function MyNavbar({ onClickLogo }) {
                 {settings.map((setting) => (
                   <MenuItem
                     key={setting}
-                    onClick={() => handleCloseAndNavigateUser(setting)}
+                    onClick={() => {
+                      if (setting === "Çıkış Yap") {
+                        handleLogout();
+                      } else {
+                        handleCloseAndNavigate(setting);
+                      }
+                    }}
                   >
                     <Typography sx={{ textAlign: "center" }}>
                       {setting}
