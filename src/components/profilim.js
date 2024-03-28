@@ -30,7 +30,7 @@ const Profilim = () => {
 
         if (response.status === 200) {
           const data = await response.json();
-          setUserInfo(data.user);
+          setUserInfo(data);
         } else {
           console.error("Kullanıcı bilgileri alınamadı.");
         }
