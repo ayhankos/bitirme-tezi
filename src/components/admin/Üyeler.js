@@ -80,58 +80,8 @@ export default function DataTable() {
           pageSize={10}
           checkboxSelection
           sx={{
-            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.25)",
-            borderRadius: "10px",
+            borderRadius: "4%",
             marginX: "2%",
-            border: "1px solid #D1D5DB",
-            "& .MuiDataGrid-columnHeaderTitle": {
-              fontWeight: "bold",
-              fontSize: "14px",
-              color: theme.palette.secondary.main,
-            },
-            "& .MuiDataGrid-cell": {
-              fontSize: "14px",
-              color: theme.palette.text.primary,
-            },
-            "& .MuiDataGrid-row": {
-              cursor: "pointer",
-              "&:hover": {
-                backgroundColor: theme.palette.action.hover,
-              },
-            },
-            "& .MuiDataGrid-footerContainer": {
-              padding: "10px",
-              borderTop: "1px solid #D1D5DB",
-            },
-            "& .MuiDataGrid-iconButtonContainer": {
-              padding: "0 5px",
-            },
-            "& .MuiSvgIcon-root": {
-              fontSize: "18px",
-            },
-            "& .MuiDataGrid-pagination": {
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "10px 0",
-            },
-            "& .MuiDataGrid-pageSizeSelect": {
-              marginRight: "10px",
-              "& .MuiSelect-select": {
-                padding: "5px",
-                borderRadius: "4px",
-                "&:focus": {
-                  backgroundColor: "white",
-                },
-              },
-            },
-            "& .MuiDataGrid-paginationSelect": {
-              borderRadius: "4px",
-              padding: "5px",
-              "&:focus": {
-                backgroundColor: "white",
-              },
-            },
           }}
         />
       </Box>
