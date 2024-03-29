@@ -73,15 +73,34 @@ export default function DataTable() {
   return (
     <>
       <AdminNavbar />
-      <Box sx={{ height: 800, width: "100%" }}>
+      <Box
+        sx={{
+          height: 600,
+          width: "96%",
+          margin: "20px auto",
+          borderRadius: 12,
+          overflow: "hidden",
+        }}
+      >
         <DataGrid
           rows={rows}
           columns={columns}
-          pageSize={10}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 5 },
+            },
+          }}
+          pageSizeOptions={[5, 10, 50]}
           checkboxSelection
           sx={{
-            borderRadius: "4%",
-            marginX: "2%",
+            borderRadius: 12,
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+            "& .MuiDataGrid-row": {
+              height: 55, // Artırılmış satır yüksekliği
+            },
+            "& .MuiDataGrid-columnsContainer": {
+              borderRadius: "inherit",
+            },
           }}
         />
       </Box>

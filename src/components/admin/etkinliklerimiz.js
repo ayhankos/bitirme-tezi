@@ -75,6 +75,12 @@ export default function EventTable() {
           rows={events}
           columns={columns}
           pageSize={5}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 5 },
+            },
+          }}
+          pageSizeOptions={[5, 10, 50]}
           checkboxSelection
           sx={{
             borderRadius: "4%",

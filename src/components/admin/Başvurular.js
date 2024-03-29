@@ -36,6 +36,12 @@ export default function Başvurular() {
           rows={rows}
           columns={columns}
           pageSize={10}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 5 },
+            },
+          }}
+          pageSizeOptions={[5, 10, 50]}
           checkboxSelection={true} // Kullanıcıların satırları seçmesini engelle
           sx={{
             borderRadius: "4%",
