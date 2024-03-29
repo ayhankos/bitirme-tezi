@@ -42,7 +42,7 @@ export default function Başvurular() {
             },
           }}
           pageSizeOptions={[5, 10, 50]}
-          checkboxSelection={true} // Kullanıcıların satırları seçmesini engelle
+          checkboxSelection={true}
           sx={{
             borderRadius: "4%",
             marginX: "2%",
