@@ -9,7 +9,8 @@ import {
   CardContent,
   CardMedia,
   Button,
-  Modal,
+  Snackbar,
+  Slide,
 } from "@mui/material";
 import MyNavbar from "./appbar";
 import Footer from "./footer";
@@ -24,11 +25,19 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+const CustomSnackbar = styled(Snackbar)(({ theme }) => ({
+  "& .MuiSnackbarContent-root": {
+    color: "#424242",
+    backgroundColor: "#bdbdbd", // Snackbar arka plan rengini değiştir
+  },
+}));
+
 const Etkinlikler = () => {
   const history = useHistory();
   const [events, setEvents] = useState([]);
   const [userId, setUserId] = useState(""); // Kullanıcı kimliği
-  const [successModalOpen, setSuccessModalOpen] = useState(false); // Başvuru başarılı modalinin açık olup olmadığını belirleyen state
+  const [openSnackbar, setOpenSnackbar] = useState(false); // Snackbar durumu
+  const [snackbarMessage, setSnackbarMessage] = useState(""); // Snackbar mesajı
 
   useEffect(() => {
     // Kullanıcı kimliğini al
@@ -58,7 +67,7 @@ const Etkinlikler = () => {
   const handleApplyEvent = async (eventId, userId) => {
     console.log(`Bearer ${localStorage.getItem("accessToken")}`);
     try {
-      const origin = window.location.origin; // İstemcinin adresini alın
+      const origin = window.location.origin; // İstemcinin adresini al
       const response = await fetch("http://localhost:3001/apply_event", {
         method: "POST",
         headers: {
@@ -71,8 +80,9 @@ const Etkinlikler = () => {
       const data = await response.json();
       if (response.ok) {
         console.log("Başvuru başarılı:", data.message);
-        // Başvuru başarılı olduğunda modalı aç
-        setSuccessModalOpen(true);
+        // Başvuru başarılı olduğunda Snackbar'ı aç
+        setSnackbarMessage("Başvuru Başarılı!");
+        setOpenSnackbar(true);
       } else {
         console.error("Başvuru başarısız:", data.error);
       }
@@ -81,9 +91,8 @@ const Etkinlikler = () => {
     }
   };
 
-  const handleCloseSuccessModal = () => {
-    // Modalı kapat
-    setSuccessModalOpen(false);
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
   };
 
   return (
@@ -135,42 +144,16 @@ const Etkinlikler = () => {
         </Grid>
       </Box>
 
-      <Footer />
+      <CustomSnackbar
+        open={openSnackbar}
+        autoHideDuration={3000} // 3 saniye sonra kapanacak
+        onClose={handleCloseSnackbar}
+        message={snackbarMessage}
+        TransitionComponent={Slide}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+      />
 
-      {/* Başvuru başarılı olduğunda gösterilecek modal */}
-      <Modal
-        open={successModalOpen}
-        onClose={handleCloseSuccessModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 200,
-            bgcolor: "#fff",
-            boxShadow: 24,
-            border: "1px solid",
-            borderRadius: "3rem",
-            p: 4,
-            textAlign: "center",
-          }}
-        >
-          <Typography variant="h5" id="modal-modal-title" gutterBottom>
-            Başvuru Başarılı!
-          </Typography>
-          <Button
-            onClick={handleCloseSuccessModal}
-            variant="contained"
-            color="primary"
-          >
-            Onay
-          </Button>
-        </Box>
-      </Modal>
+      <Footer />
     </>
   );
 };
