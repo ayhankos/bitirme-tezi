@@ -116,7 +116,7 @@ const Etkinlikler = () => {
           width: "100%",
           marginTop: 5,
           marginBottom: 5,
-          backgroundColor: theme.palette.secondary.main,
+          backgroundColor: theme.palette.primary.main,
           padding: theme.spacing(1),
         }}
       >
@@ -130,11 +130,12 @@ const Etkinlikler = () => {
                       display: "flex",
                       flexDirection: "column",
                       height: "100%",
+                      boxShadow: 6,
+                      borderRadius: 6,
                     }}
                   >
                     <CardMedia
                       component="img"
-                      width="100%" // Resmin genişliğini doldurması için
                       image={event.imageUrl}
                       alt={`Etkinlik ${index + 1} görseli`}
                       sx={{
