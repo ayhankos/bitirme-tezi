@@ -134,7 +134,7 @@ const Etkinlikler = () => {
             {events.map((event, index) => (
               <Grid item xs={12} sm={6} md={3} key={index}>
                 <motion.div variants={item}>
-                  <Item sx={{ border: 0.5, borderRadius: 2 }}>
+                  <Item>
                     <Card sx={{ height: "100%" }}>
                       <CardMedia
                         component="img"
