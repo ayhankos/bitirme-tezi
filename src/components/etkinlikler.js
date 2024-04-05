@@ -4,7 +4,6 @@ import {
   Box,
   Grid,
   Typography,
-  Paper,
   Card,
   CardContent,
   CardMedia,
@@ -37,14 +36,6 @@ const item = {
     opacity: 1,
   },
 };
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
 
 const CustomSnackbar = styled(Snackbar)(({ theme }) => ({
   "& .MuiSnackbarContent-root": {
@@ -134,24 +125,39 @@ const Etkinlikler = () => {
             {events.map((event, index) => (
               <Grid item xs={12} sm={6} md={3} key={index}>
                 <motion.div variants={item}>
-                  <Item>
-                    <Card sx={{ height: "100%" }}>
-                      <CardMedia
-                        component="img"
-                        height="200"
-                        image={event.imageUrl}
-                        alt={`Etkinlik ${index + 1} görseli`}
-                      />
-                      <CardContent sx={{}}>
-                        <Typography gutterBottom variant="h5" component="div">
-                          {event.title}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          {event.detail}
-                        </Typography>
-                      </CardContent>
-                      <Box sx={{ flexGrow: 1 }} />
-                      <Box sx={{ paddingBottom: 1.5 }}>
+                  <Card
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      height: "100%",
+                    }}
+                  >
+                    <CardMedia
+                      component="img"
+                      width="100%" // Resmin genişliğini doldurması için
+                      image={event.imageUrl}
+                      alt={`Etkinlik ${index + 1} görseli`}
+                      sx={{
+                        aspectRatio: "16/9",
+                        objectFit: "cover",
+                      }}
+                    />
+                    <CardContent
+                      sx={{
+                        flexGrow: 1,
+                        textAlign: "center",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Typography gutterBottom variant="h5" component="div">
+                        {event.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {event.detail}
+                      </Typography>
+                      <Box sx={{ mt: 2 }}>
                         <Button
                           variant="contained"
                           color="primary"
@@ -160,8 +166,8 @@ const Etkinlikler = () => {
                           Başvuru Yap
                         </Button>
                       </Box>
-                    </Card>
-                  </Item>
+                    </CardContent>
+                  </Card>
                 </motion.div>
               </Grid>
             ))}
