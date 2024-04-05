@@ -1,13 +1,13 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemButton from "@mui/joy/ListItemButton";
 import ListSubheader from "@mui/joy/ListSubheader";
 import Divider from "@mui/joy/Divider";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 const Footer = () => {
   return (
@@ -24,7 +24,7 @@ const Footer = () => {
     >
       <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
         <IconButton variant="plain">
-          <FacebookRoundedIcon />
+          <LinkedInIcon />
         </IconButton>
         <IconButton variant="plain">
           <GitHubIcon />
@@ -62,13 +62,23 @@ const Footer = () => {
               alignItems: "center", // Center text within the ListItem
             }}
           >
-            <ListSubheader sx={{ fontWeight: "xl" }}>Sitemap</ListSubheader>
+            <ListSubheader sx={{ fontWeight: "xl" }}>Socials</ListSubheader>
             <List>
               <ListItem>
-                <ListItemButton>Services</ListItemButton>
+                <ListItemButton
+                  component="a"
+                  href="https://www.linkedin.com/in/ayhaneminkos/"
+                >
+                  Linkedin
+                </ListItemButton>
               </ListItem>
               <ListItem>
-                <ListItemButton>Blog</ListItemButton>
+                <ListItemButton
+                  component="a"
+                  href="https://github.com/ayhankos"
+                >
+                  Github
+                </ListItemButton>
               </ListItem>
               <ListItem>
                 <ListItemButton>About</ListItemButton>

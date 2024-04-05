@@ -16,6 +16,27 @@ import MyNavbar from "./appbar";
 import Footer from "./footer";
 import { styled } from "@mui/material/styles";
 import theme from "./colors";
+import { motion } from "framer-motion";
+
+const container = {
+  hidden: { opacity: 1, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 0.3,
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const item = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -108,40 +129,44 @@ const Etkinlikler = () => {
           padding: theme.spacing(1),
         }}
       >
-        <Grid container spacing={2}>
-          {events.map((event, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
-              <Item sx={{ border: 0.5, borderRadius: 2 }}>
-                <Card sx={{ height: "100%" }}>
-                  <CardMedia
-                    component="img"
-                    height="200"
-                    image={event.imageUrl}
-                    alt={`Etkinlik ${index + 1} görseli`}
-                  />
-                  <CardContent sx={{}}>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {event.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {event.detail}
-                    </Typography>
-                  </CardContent>
-                  <Box sx={{ flexGrow: 1 }} />
-                  <Box sx={{ paddingBottom: 1.5 }}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleApplyEvent(event.id, userId)} // handleApplyEvent fonksiyonuna tıklama olayını bağlama
-                    >
-                      Başvuru Yap
-                    </Button>
-                  </Box>
-                </Card>
-              </Item>
-            </Grid>
-          ))}
-        </Grid>
+        <motion.div variants={container} initial="hidden" animate="visible">
+          <Grid container spacing={2}>
+            {events.map((event, index) => (
+              <Grid item xs={12} sm={6} md={3} key={index}>
+                <motion.div variants={item}>
+                  <Item sx={{ border: 0.5, borderRadius: 2 }}>
+                    <Card sx={{ height: "100%" }}>
+                      <CardMedia
+                        component="img"
+                        height="200"
+                        image={event.imageUrl}
+                        alt={`Etkinlik ${index + 1} görseli`}
+                      />
+                      <CardContent sx={{}}>
+                        <Typography gutterBottom variant="h5" component="div">
+                          {event.title}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          {event.detail}
+                        </Typography>
+                      </CardContent>
+                      <Box sx={{ flexGrow: 1 }} />
+                      <Box sx={{ paddingBottom: 1.5 }}>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={() => handleApplyEvent(event.id, userId)} // handleApplyEvent fonksiyonuna tıklama olayını bağlama
+                        >
+                          Başvuru Yap
+                        </Button>
+                      </Box>
+                    </Card>
+                  </Item>
+                </motion.div>
+              </Grid>
+            ))}
+          </Grid>
+        </motion.div>
       </Box>
 
       <CustomSnackbar
