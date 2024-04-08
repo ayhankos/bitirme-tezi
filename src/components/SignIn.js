@@ -7,7 +7,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Box, Grid, Link } from "@mui/material";
+import { Box, Grid, Link, Divider } from "@mui/material";
+import { Facebook, Google } from "@mui/icons-material"; // Facebook ve Google ikonları
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const defaultTheme = createTheme();
@@ -59,58 +60,118 @@ export const SignIn = () => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Giriş Yap
-          </Typography>
+      <CssBaseline />
+      <Box
+        sx={{
+          backgroundColor: "#f5f5f5",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+          backgroundSize: "cover",
+        }}
+      >
+        <Container component="main" maxWidth="xs">
           <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
+            sx={{
+              backgroundColor: "rgba(255, 255, 255, 0.9)",
+              borderRadius: "8px",
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+              padding: "24px",
+              textAlign: "center",
+            }}
           >
-            <TextField
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+            <Avatar
+              sx={{ m: "auto", bgcolor: "primary.dark", marginBottom: 1 }}
             >
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5" sx={{ mb: 2 }}>
               Giriş Yap
-            </Button>
-            <div>
+            </Typography>
+            <Grid container spacing={2} justifyContent="center">
+              <Grid item textAlign="center">
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: 2,
+                  }}
+                >
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      borderColor: "#3b5998",
+                      color: "#3b5998",
+                      textTransform: "none",
+                    }}
+                  >
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <Facebook />
+                      <span style={{ marginLeft: 8 }}>
+                        Facebook ile giriş yap
+                      </span>
+                    </Box>
+                  </Button>
+
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      borderColor: "#db4437",
+                      color: "#db4437",
+                      textTransform: "none",
+                      marginLeft: 1,
+                    }}
+                  >
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <Google /> {/* İkon */}
+                      <span style={{ marginLeft: 8 }}>
+                        Google ile giriş yap
+                      </span>
+                    </Box>
+                  </Button>
+                </Box>
+              </Grid>
+            </Grid>
+            <Divider sx={{ mb: 2 }}>veya</Divider>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 3 }}
+            >
+              <TextField
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                sx={{ marginBottom: "12px" }}
+              />
+              <TextField
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                sx={{ marginBottom: "24px" }}
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mb: 2 }}
+              >
+                Giriş Yap
+              </Button>
+
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Link href="/" variant="body2">
@@ -118,10 +179,10 @@ export const SignIn = () => {
                   </Link>
                 </Grid>
               </Grid>
-            </div>
+            </Box>
           </Box>
-        </Box>
-      </Container>
+        </Container>
+      </Box>
     </ThemeProvider>
   );
 };
