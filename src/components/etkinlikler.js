@@ -96,6 +96,8 @@ const Etkinlikler = () => {
         setSnackbarMessage("Başvuru Başarılı!");
         setOpenSnackbar(true);
       } else {
+        setSnackbarMessage("Daha önce bu etkinliğe başvurdunuz.");
+        setOpenSnackbar(true);
         console.error("Başvuru başarısız:", data.error);
       }
     } catch (error) {

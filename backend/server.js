@@ -369,22 +369,49 @@ app.post("/apply_event", (req, res) => {
     // Başvuruda bulunulan etkinliğin ID'sini al
     const { eventId } = req.body;
 
-    // Etkinlik başvurusunu kaydet
+    // Kullanıcının daha önce aynı etkinliğe başvuru yapmış olup olmadığını kontrol et
     db.query(
-      "INSERT INTO user_events (user_id, event_id) VALUES (?, ?)",
+      "SELECT * FROM user_events WHERE user_id = ? AND event_id = ?",
       [userId, eventId],
-      (err, result) => {
+      (err, results) => {
         if (err) {
           console.error("Error executing MySQL query:", err);
           return res.status(500).json({
             success: false,
-            message: "Kullanıcı bilgileri eklenemedi.",
+            message: "Veritabanı hatası",
             error: err.message,
           });
         }
 
-        // Başvuru başarılı mesajını dön
-        res.json({ success: true, message: "Event application successful" });
+        if (results.length > 0) {
+          // Kullanıcı daha önce bu etkinliğe başvurmuşsa hata döndür
+          return res.status(400).json({
+            success: false,
+            message: "Kullanıcı zaten bu etkinliğe başvurmuş",
+          });
+        }
+
+        // Kullanıcının daha önce başvuru yapmadığı durumunda başvuruyu kaydet
+        db.query(
+          "INSERT INTO user_events (user_id, event_id) VALUES (?, ?)",
+          [userId, eventId],
+          (err, result) => {
+            if (err) {
+              console.error("Error executing MySQL query:", err);
+              return res.status(500).json({
+                success: false,
+                message: "Kullanıcı bilgileri eklenemedi.",
+                error: err.message,
+              });
+            }
+
+            // Başvuru başarılı mesajını dön
+            res.json({
+              success: true,
+              message: "Event application successful",
+            });
+          }
+        );
       }
     );
   } catch (error) {

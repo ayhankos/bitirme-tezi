@@ -49,6 +49,13 @@ function MyNavbar({ onClickLogo }) {
     setAnchorElUser(null);
   };
 
+  const handleLogout = () => {
+    // Oturum bilgisini temizle
+    localStorage.removeItem("accessToken");
+    // Giriş sayfasına yönlendir
+    history.push("/sign-in");
+  };
+
   return (
     <Box sx={{}}>
       <AppBar
@@ -180,7 +187,13 @@ function MyNavbar({ onClickLogo }) {
                 {settings.map((setting) => (
                   <MenuItem
                     key={setting}
-                    onClick={() => handleCloseAndNavigateUser(setting)}
+                    onClick={() => {
+                      if (setting === "Çıkış Yap") {
+                        handleLogout();
+                      } else {
+                        handleCloseAndNavigateUser(setting);
+                      }
+                    }}
                   >
                     <Typography sx={{ textAlign: "center" }}>
                       {setting}

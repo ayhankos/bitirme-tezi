@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import main from "./components/main";
@@ -12,21 +17,40 @@ import Üyeler from "./components/admin/Üyeler";
 import etkinliklerimiz from "./components/admin/etkinliklerimiz";
 import Başvurular from "./components/admin/Başvurular";
 
+// isAuthenticated fonksiyonunu ekleyin
+const isAuthenticated = () => {
+  // localStorage'da "accessToken" adında bir anahtar var mı kontrol ediyoruz
+  const accessToken = localStorage.getItem("accessToken");
+
+  // Eğer accessToken varsa ve değeri boş değilse, kullanıcı oturum açmış olarak kabul edilir
+  return accessToken ? true : false;
+};
+
+// PrivateRoute bileşeni oluşturun
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      isAuthenticated() ? <Component {...props} /> : <Redirect to="/sign-in" />
+    }
+  />
+);
+
 export default function App() {
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={SignUp} />
         <Route path="/sign-in" component={SignIn} />
-        <Route path="/main" component={main} />
-        <Route path="/topluluklar" component={Topluluklar} />
-        <Route path="/etkinlikler" component={Etkinlikler} />
-        <Route path="/hakkımızda" component={Hakkimizda} />
-        <Route path="/profilim" component={Profilim} />
-        <Route path="/admin" component={Admin} />
-        <Route path="/Üyeler" component={Üyeler} />
-        <Route path="/etkinliklerimiz" component={etkinliklerimiz} />
-        <Route path="/Başvurular" component={Başvurular} />
+        <PrivateRoute path="/main" component={main} />
+        <PrivateRoute path="/topluluklar" component={Topluluklar} />
+        <PrivateRoute path="/etkinlikler" component={Etkinlikler} />
+        <PrivateRoute path="/hakkımızda" component={Hakkimizda} />
+        <PrivateRoute path="/profilim" component={Profilim} />
+        <PrivateRoute path="/admin" component={Admin} />
+        <PrivateRoute path="/Üyeler" component={Üyeler} />
+        <PrivateRoute path="/etkinliklerimiz" component={etkinliklerimiz} />
+        <PrivateRoute path="/Başvurular" component={Başvurular} />
       </Switch>
     </Router>
   );
