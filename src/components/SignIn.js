@@ -7,7 +7,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Box, Grid, Link, Divider } from "@mui/material";
+import { Box, Grid, Link, Divider, Snackbar } from "@mui/material";
 import { Facebook, Google } from "@mui/icons-material"; // Facebook ve Google ikonları
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
@@ -16,6 +16,8 @@ const defaultTheme = createTheme();
 export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false);
+  const [openSnackbarError, setOpenSnackbarError] = useState(false);
   const history = useHistory();
 
   const handleSubmit = async (event) => {
@@ -44,17 +46,20 @@ export const SignIn = () => {
       // Giriş başarılıysa yönlendirme yapabilirsiniz
       if (data.success) {
         localStorage.setItem("accessToken", data.token);
-        if (data.isAdmin) {
-          console.log("Backend response:", data);
-          history.push("/admin");
-        } else {
-          history.push("/main");
-        }
+        setOpenSnackbarSuccess(true);
+        setTimeout(() => {
+          if (data.isAdmin) {
+            history.push("/admin");
+          } else {
+            history.push("/main");
+          }
+        }, 1500);
       } else {
-        alert("Giriş başarısız. Lütfen tekrar deneyin.");
+        setOpenSnackbarError(true);
       }
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
+      setOpenSnackbarError(true);
     }
   };
 
@@ -183,6 +188,24 @@ export const SignIn = () => {
           </Box>
         </Container>
       </Box>
+
+      {/* Başarı Snackbar'ı */}
+      <Snackbar
+        open={openSnackbarSuccess}
+        autoHideDuration={3000}
+        onClose={() => setOpenSnackbarSuccess(false)}
+        message="Giriş Başarılı! Ana sayfaya yönlendiriliyorsunuz..."
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+      />
+
+      {/* Hata Snackbar'ı */}
+      <Snackbar
+        open={openSnackbarError}
+        autoHideDuration={3000}
+        onClose={() => setOpenSnackbarError(false)}
+        message="Giriş Başarısız. Lütfen bilgilerinizi kontrol edin."
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+      />
     </ThemeProvider>
   );
 };
