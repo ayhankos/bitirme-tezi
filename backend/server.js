@@ -228,6 +228,20 @@ app.get("/events", (req, res) => {
   });
 });
 
+app.get("/communities", (req, res) => {
+  db.query("SELECT * FROM communities", (err, results) => {
+    if (err) {
+      console.error("Error executing MySQL query:", err);
+      return res.status(500).json({
+        success: false,
+        message: "Topluluklar listelenemedi.",
+        error: err.message,
+      });
+    }
+    res.json(results);
+  });
+});
+
 app.get("/users", (req, res) => {
   db.query("SELECT * FROM users", (err, results) => {
     if (err) {

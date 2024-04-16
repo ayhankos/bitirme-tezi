@@ -1,223 +1,152 @@
-import React from "react";
-import { useHistory } from "react-router-dom"; // history objesini import et
-
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import {
   Box,
   Grid,
   Typography,
-  Paper,
   Card,
   CardContent,
   CardMedia,
+  Button,
+  Snackbar,
+  Slide,
 } from "@mui/material";
-import theme from "./colors"; // Renkleri dahil et
 import MyNavbar from "./appbar";
 import Footer from "./footer";
 import { styled } from "@mui/material/styles";
+import theme from "./colors";
+import { motion } from "framer-motion";
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
+const container = {
+  hidden: { opacity: 1, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 0.3,
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const item = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
+
+const CustomSnackbar = styled(Snackbar)(({ theme }) => ({
+  "& .MuiSnackbarContent-root": {
+    color: "#424242",
+    backgroundColor: "#bdbdbd", // Snackbar arka plan rengini değiştir
+  },
 }));
 
 const Topluluklar = () => {
-  const history = useHistory(); // History objesini al
+  const history = useHistory();
+  const [communities, setCommunities] = useState([]);
+  const [openSnackbar, setOpenSnackbar] = useState(false); // Snackbar durumu
+
+  useEffect(() => {
+    fetchCommunities();
+  }, []);
+
+  const fetchCommunities = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/communities");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setCommunities(data);
+    } catch (error) {
+      console.error("There was a problem fetching Communities:", error);
+    }
+  };
+
   const handleClickLogo = () => {
     history.push("/main");
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
   };
 
   return (
     <>
       <MyNavbar onClickLogo={handleClickLogo} />
+
       <Box
         sx={{
           width: "100%",
           marginTop: 5,
           marginBottom: 5,
-          backgroundColor: theme.palette.secondary.main,
+          backgroundColor: theme.palette.primary.main,
+          padding: theme.spacing(1),
         }}
       >
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography variant="h4" align="center" gutterBottom>
-              Topluluklar
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Item>
-              <Card sx={{ display: "flex" }}>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <CardContent sx={{ flex: "1 0 auto" }}>
-                    <Typography component="div" variant="h5">
-                      Live From Space
-                    </Typography>
-                    <Typography
-                      variant="subtitle1"
-                      color="text.secondary"
-                      component="div"
-                    >
-                      Mac Miller
-                    </Typography>
-                  </CardContent>
-                  <Box
+        <motion.div variants={container} initial="hidden" animate="visible">
+          <Grid container spacing={2}>
+            {communities.map((Communities, index) => (
+              <Grid item xs={12} sm={6} md={3} key={index}>
+                <motion.div variants={item}>
+                  <Card
                     sx={{
                       display: "flex",
-                      alignItems: "center",
-                      pl: 1,
-                      pb: 1,
+                      flexDirection: "column",
+                      height: "100%",
+                      boxShadow: 6,
+                      borderRadius: 6,
                     }}
-                  ></Box>
-                </Box>
-                <CardMedia
-                  component="img"
-                  sx={{ width: 151 }}
-                  image="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180"
-                  alt="Live from space album cover"
-                />
-              </Card>
-            </Item>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Item>
-              <Card sx={{ display: "flex" }}>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <CardContent sx={{ flex: "1 0 auto" }}>
-                    <Typography component="div" variant="h5">
-                      Live From Space
-                    </Typography>
-                    <Typography
-                      variant="subtitle1"
-                      color="text.secondary"
-                      component="div"
+                  >
+                    <CardMedia
+                      component="img"
+                      image={Communities.imageUrl}
+                      alt={`Etkinlik ${index + 1} görseli`}
+                      sx={{
+                        aspectRatio: "16/9",
+                        objectFit: "cover",
+                      }}
+                    />
+                    <CardContent
+                      sx={{
+                        flexGrow: 1,
+                        textAlign: "center",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                      }}
                     >
-                      Mac Miller
-                    </Typography>
-                  </CardContent>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      pl: 1,
-                      pb: 1,
-                    }}
-                  ></Box>
-                </Box>
-                <CardMedia
-                  component="img"
-                  sx={{ width: 151 }}
-                  image="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180"
-                  alt="Live from space album cover"
-                />
-              </Card>
-            </Item>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {Communities.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {Communities.detail}
+                      </Typography>
+                      <Box sx={{ mt: 2 }}>
+                        <Button variant="contained" color="primary">
+                          Başvuru Yap
+                        </Button>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </Grid>
+            ))}
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Item>
-              <Card sx={{ display: "flex" }}>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <CardContent sx={{ flex: "1 0 auto" }}>
-                    <Typography component="div" variant="h5">
-                      Live From Space
-                    </Typography>
-                    <Typography
-                      variant="subtitle1"
-                      color="text.secondary"
-                      component="div"
-                    >
-                      Mac Miller
-                    </Typography>
-                  </CardContent>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      pl: 1,
-                      pb: 1,
-                    }}
-                  ></Box>
-                </Box>
-                <CardMedia
-                  component="img"
-                  sx={{ width: 151 }}
-                  image="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180"
-                  alt="Live from space album cover"
-                />
-              </Card>
-            </Item>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Item>
-              <Card sx={{ display: "flex" }}>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <CardContent sx={{ flex: "1 0 auto" }}>
-                    <Typography component="div" variant="h5">
-                      Live From Space
-                    </Typography>
-                    <Typography
-                      variant="subtitle1"
-                      color="text.secondary"
-                      component="div"
-                    >
-                      Mac Miller
-                    </Typography>
-                  </CardContent>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      pl: 1,
-                      pb: 1,
-                    }}
-                  ></Box>
-                </Box>
-                <CardMedia
-                  component="img"
-                  sx={{ width: 151 }}
-                  image="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180"
-                  alt="Live from space album cover"
-                />
-              </Card>
-            </Item>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Item>
-              <Card sx={{ display: "flex" }}>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <CardContent sx={{ flex: "1 0 auto" }}>
-                    <Typography component="div" variant="h5">
-                      Live From Space
-                    </Typography>
-                    <Typography
-                      variant="subtitle1"
-                      color="text.secondary"
-                      component="div"
-                    >
-                      Mac Miller
-                    </Typography>
-                  </CardContent>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      pl: 1,
-                      pb: 1,
-                    }}
-                  ></Box>
-                </Box>
-                <CardMedia
-                  component="img"
-                  sx={{ width: 151 }}
-                  image="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1636996180"
-                  alt="Live from space album cover"
-                />
-              </Card>
-            </Item>
-          </Grid>
-        </Grid>
+        </motion.div>
       </Box>
+
+      <CustomSnackbar
+        open={openSnackbar}
+        autoHideDuration={3000} // 3 saniye sonra kapanacak
+        onClose={handleCloseSnackbar}
+        TransitionComponent={Slide}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+      />
+
       <Footer />
     </>
   );
