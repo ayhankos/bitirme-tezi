@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
 import MyNavbar from "./appbar";
 import Footer from "./footer";
 import { useHistory } from "react-router-dom";
-import theme from "./colors";
+import { Box, Card, CardContent, Typography } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 
 const Profilim = () => {
   const history = useHistory();
-  const [showPasswordModal, setShowPasswordModal] = useState(false);
-  const [newPassword, setNewPassword] = useState("");
   const [userInfo, setUserInfo] = useState([]);
 
   useEffect(() => {
@@ -48,24 +45,6 @@ const Profilim = () => {
     history.push("/main");
   };
 
-  const handleOpenPasswordModal = () => {
-    setShowPasswordModal(true);
-  };
-
-  const handleClosePasswordModal = () => {
-    setShowPasswordModal(false);
-    // Ek işlemler yapabilirsiniz, örneğin modal kapatıldığında newPassword'i temizleme
-    setNewPassword("");
-  };
-
-  const handlePasswordChange = () => {
-    // Şifre değiştirme işlemleri burada yapılabilir
-    // newPassword state'ini kullanarak yeni şifreyi alabilirsiniz
-    console.log("Yeni Şifre:", newPassword);
-    // Şifre değiştirme işlemi tamamlandıktan sonra modal'ı kapatın
-    handleClosePasswordModal();
-  };
-
   return (
     <>
       <MyNavbar onClickLogo={handleClickLogo} />
@@ -76,89 +55,124 @@ const Profilim = () => {
 
         <Divider sx={{ marginBottom: 2 }} />
 
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <Paper
-              elevation={4}
-              sx={{
-                padding: 2,
-                height: "8rem",
-                display: "flex",
-                flexDirection: "column",
-                backgroundColor: theme.palette.primary.main,
-              }}
-            >
-              <Typography variant="h6" gutterBottom>
-                Kullanıcı Bilgileri
-              </Typography>
-              <Typography variant="body1">
-                Ad: {userInfo?.firstName} {userInfo?.lastName}
-                <br />
-                E-posta: {userInfo?.email}
-              </Typography>
-            </Paper>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Paper
-              elevation={4}
-              sx={{
-                padding: 2,
-                height: "8rem",
-                display: "flex",
-                flexDirection: "column",
-                backgroundColor: theme.palette.primary.main,
-              }}
-            >
-              <Typography variant="h6" gutterBottom>
-                Profil Ayarları
-              </Typography>
-              <Button
-                variant="contained"
-                sx={{
-                  marginBottom: 1,
-                  maxWidth: "20rem",
-                  backgroundColor: theme.palette.text.main,
-                }}
-                onClick={handleOpenPasswordModal}
-              >
-                Şifreyi Değiştir
-              </Button>
-              {/* Şifre değiştirme modal'ı */}
-              {showPasswordModal && (
-                <div>
-                  <input
-                    type="password"
-                    placeholder="Yeni Şifre"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                  />
-                  <Button
-                    variant="contained"
-                    sx={{
-                      marginBottom: 1,
-                      maxWidth: "20rem",
-                      backgroundColor: theme.palette.text.main,
-                    }}
-                    onClick={handlePasswordChange}
+        <Box
+          sx={{
+            width: "100%",
+            position: "relative",
+            overflow: { xs: "auto", sm: "initial" },
+          }}
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              display: "block",
+              width: "1px",
+              bgcolor: "warning.300",
+              left: "500px",
+              top: "-24px",
+              bottom: "-24px",
+              "&::before": {
+                top: "4px",
+                display: "block",
+                position: "absolute",
+                right: "0.5rem",
+                color: "text.tertiary",
+                fontSize: "sm",
+                fontWeight: "lg",
+              },
+              "&::after": {
+                top: "4px",
+                display: "block",
+                position: "absolute",
+                left: "0.5rem",
+                color: "text.tertiary",
+                fontSize: "sm",
+                fontWeight: "lg",
+              },
+            }}
+          />
+          <Card
+            orientation="horizontal"
+            sx={{
+              width: "100%",
+              flexWrap: "wrap",
+              [`& > *`]: {
+                "--stack-point": "500px",
+                minWidth:
+                  "clamp(0px, (calc(var(--stack-point) - 2 * var(--Card-padding) - 2 * var(--variant-borderWidth, 0px)) + 1px - 100%) * 999, 100%)",
+              },
+              // make the card resizable for demo
+              overflow: "auto",
+              resize: "horizontal",
+            }}
+          >
+            <Grid container>
+              <Grid item xs={12} sm={4}>
+                <img
+                  src="https://media.licdn.com/dms/image/C4D03AQHyF6IQWEqDPw/profile-displayphoto-shrink_800_800/0/1652908007347?e=1718841600&v=beta&t=sljmsQsSRqqMla1e1R7zKTwJg0IMK39MYOHZdOY7RzY"
+                  srcSet="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286&dpr=2 2x"
+                  loading="lazy"
+                  alt=""
+                  style={{ maxWidth: "100%", height: "auto" }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={8}>
+                <CardContent>
+                  <Typography variant="h4" fontWeight="bold" gutterBottom>
+                    {userInfo?.firstName} {userInfo?.lastName}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    fontWeight="bold"
+                    color="text.secondary"
+                    gutterBottom
                   >
-                    Şifreyi Kaydet
-                  </Button>
-                  <Button
-                    variant="contained"
+                    Üye
+                  </Typography>
+                  <Paper
                     sx={{
-                      maxWidth: "20rem",
-                      backgroundColor: theme.palette.text.main,
+                      bgcolor: "background.level1",
+                      borderRadius: "sm",
+                      p: 1.5,
+                      my: 1.5,
+                      display: "flex",
+                      gap: 2,
                     }}
-                    onClick={handleClosePasswordModal}
                   >
-                    İptal
-                  </Button>
-                </div>
-              )}
-            </Paper>
-          </Grid>
-        </Grid>
+                    <Grid container spacing={2}>
+                      <Grid item xs={4}>
+                        <Typography variant="body2" fontWeight="bold">
+                          Articles
+                        </Typography>
+                        <Typography fontWeight="bold">34</Typography>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Typography variant="body2" fontWeight="bold">
+                          Followers
+                        </Typography>
+                        <Typography fontWeight="bold">980</Typography>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Typography variant="body2" fontWeight="bold">
+                          Rating
+                        </Typography>
+                        <Typography fontWeight="bold">8.9</Typography>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                  <Box sx={{ display: "flex", gap: 1.5 }}>
+                    <Button variant="outlined" color="primary">
+                      Chat
+                    </Button>
+                    <Button variant="contained" color="primary">
+                      Follow
+                    </Button>
+                  </Box>
+                </CardContent>
+              </Grid>
+            </Grid>
+          </Card>
+        </Box>
       </Container>
 
       <Footer />
