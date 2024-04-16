@@ -162,10 +162,10 @@ const Profilim = () => {
                   </Paper>
                   <Box sx={{ display: "flex", gap: 1.5 }}>
                     <Button variant="outlined" color="primary">
-                      Chat
+                      Sohbet
                     </Button>
                     <Button variant="contained" color="primary">
-                      Follow
+                      Takip Et
                     </Button>
                   </Box>
                 </CardContent>
