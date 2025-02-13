@@ -25,8 +25,8 @@ app.use(bodyParser.json());
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "fenerbahce41",
-  database: "BitirmeTezi", // Veritabanı adınızı buraya ekleyin
+  password: "",
+  database: "", // Veritabanı adınızı buraya ekleyin
 });
 
 db.connect((err) => {
